@@ -11,6 +11,9 @@
         :root { --primary: #025d3c; }
         .bg-primary { background-color: var(--primary); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(24%) sepia(13%) saturate(2285%) hue-rotate(105deg) brightness(95%) contrast(97%);
+        }
     </style>
 </head>
 <body class="bg-[#f0fdf4] pb-24 min-h-screen font-sans text-gray-900">
@@ -18,14 +21,13 @@
     <div id="tab-awal" class="hidden p-6 max-w-md mx-auto">
         <div class="text-center mb-10 pt-10">
             <h2 class="text-4xl font-black text-[#025d3c] tracking-tighter italic">Matur Suwon</h2>
-            <p class="text-gray-500 text-sm mt-1 font-medium italic text-center">Framework Komunitas</p>
+            <p class="text-gray-500 text-sm mt-1 font-medium italic">Framework Komunitas</p>
         </div>
         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
             <div class="flex bg-gray-50 rounded-full p-1 mb-6 text-center">
                 <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase">Peserta</button>
                 <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase">Admin GM</button>
             </div>
-            
             <div id="form-member">
                 <div id="member-register-fields" class="space-y-4 text-center">
                     <input type="text" id="reg-name" placeholder="Nama Lengkap sesuai KTP" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
@@ -33,22 +35,18 @@
                     <input type="number" id="reg-wa" placeholder="No. WhatsApp (628...)" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-sm">
                     <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-xs uppercase text-center tracking-widest">
                     <button id="btn-proses-daftar" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Daftar Sekarang</button>
-                    <div class="pt-6 mt-4 border-t border-gray-100 text-center">
-                        <button onclick="toggleMemberView('login')" class="text-primary text-[10px] font-black uppercase tracking-widest underline">Ganti HP / Masuk dengan NIK</button>
-                    </div>
+                    <div class="pt-6 mt-4 border-t border-gray-100"><button onclick="toggleMemberView('login')" class="text-primary text-[10px] font-black uppercase tracking-widest underline">Masuk dengan NIK</button></div>
                 </div>
-
                 <div id="member-login-fields" class="hidden space-y-4 text-center">
                     <input type="number" id="login-nik" placeholder="Masukkan NIK Anda" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-center font-black tracking-widest text-primary text-lg">
                     <button onclick="restoreByNIK()" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Cari Akun Saya</button>
                     <button onclick="toggleMemberView('register')" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-4">Kembali</button>
                 </div>
             </div>
-
-            <div id="form-gm" class="hidden space-y-4 text-center">
-                <input type="text" id="gm-user" placeholder="Username GM" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
-                <input type="password" id="gm-pass" placeholder="Password" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
-                <button id="btn-login-gm" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold mt-2 shadow-lg active:scale-95 uppercase tracking-widest text-xs">Masuk Console GM</button>
+            <div id="form-gm" class="hidden space-y-4">
+                <input type="text" id="gm-user" placeholder="Username GM" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-center font-bold">
+                <input type="password" id="gm-pass" placeholder="Password" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-center">
+                <button id="btn-login-gm" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold shadow-lg uppercase tracking-widest text-xs">Masuk Console GM</button>
             </div>
         </div>
     </div>
@@ -57,9 +55,9 @@
         <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 relative overflow-hidden">
             <p class="text-[10px] opacity-80 uppercase tracking-widest font-black">Saldo Poin</p>
             <h1 id="user-points" class="text-7xl font-black mt-1">0</h1>
-            <div class="mt-8 flex flex-col items-center border-t border-white/20 pt-5 text-center">
-                <p id="user-name" class="font-black text-xl uppercase tracking-tighter leading-tight text-center"></p>
-                <p id="user-id-text" class="bg-white/10 px-6 py-2 rounded-full font-mono text-xl font-black tracking-[0.2em] mt-3 text-center"></p>
+            <div class="mt-8 flex flex-col items-center border-t border-white/20 pt-5">
+                <p id="user-name" class="font-black text-xl uppercase tracking-tighter leading-tight"></p>
+                <p id="user-id-text" class="bg-white/10 px-6 py-2 rounded-full font-mono text-xl font-black tracking-[0.2em] mt-3"></p>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-6">
@@ -84,36 +82,40 @@
 
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6 px-2 font-black italic uppercase">
-            <h2 class="text-2xl text-gray-800 tracking-tighter text-center">Game Master</h2>
-            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100 uppercase">Logout</button>
+            <h2 class="text-2xl text-gray-800 tracking-tighter">Game Master</h2>
+            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100">Logout</button>
         </div>
         
-        <div id="gm-event-selector" class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 mb-6">
-            <h3 class="font-bold text-gray-700 mb-4 text-center uppercase text-xs tracking-widest">Event Aktif di Lokasi Lain</h3>
-            <div id="active-events-list" class="space-y-2 mb-4 text-center">
+        <div id="gm-event-selector" class="space-y-6">
+            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
+                <h3 class="font-bold text-gray-400 mb-4 text-center uppercase text-[10px] tracking-widest">Gunakan Event Aktif</h3>
+                <div id="active-events-list" class="space-y-2 text-center">
+                    </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
+                <h3 class="font-bold text-gray-700 mb-4 text-center uppercase text-[10px] tracking-widest">Buat Event Lokasi Baru</h3>
+                <div class="space-y-3">
+                    <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm font-bold">
+                    <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-bold text-gray-500 text-sm">
+                    <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-black text-primary">
+                        <option value="5">Poin: 5</option><option value="10" selected>Poin: 10</option><option value="15">Poin: 15</option>
+                    </select>
+                    <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: RM Sidodadi)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm font-medium">
+                    <button onclick="createEvent()" id="btn-trigger-create" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">AKTIFKAN EVENT</button>
                 </div>
-            <hr class="my-6 border-gray-100">
-            <div class="space-y-3">
-                <h3 class="font-bold text-gray-700 mb-2 text-center uppercase text-xs tracking-widest">Buat Event di Sini</h3>
-                <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm font-bold">
-                <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-bold text-gray-500 text-sm">
-                <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-black text-primary">
-                    <option value="5">Poin: 5</option><option value="10" selected>Poin: 10</option><option value="15">Poin: 15</option>
-                </select>
-                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: RM Sidodadi)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm">
-                <button onclick="createEvent()" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Aktifkan Event</button>
             </div>
         </div>
 
         <div id="gm-active-event" class="hidden space-y-4 text-center">
             <div class="bg-white p-8 rounded-[3rem] shadow-2xl border-2 border-primary text-center">
                 <h2 id="display-ev-name" class="text-3xl font-black text-gray-800 uppercase tracking-tighter leading-tight text-center"></h2>
-                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic text-center text-center"></p>
+                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic text-center"></p>
                 <div class="my-6 p-4 bg-gray-50 rounded-[2.5rem] border-2 border-dashed border-gray-200 flex justify-center"><div id="ev-qrcode-area"></div></div>
                 <button onclick="endEvent()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-[10px]">Tutup Kegiatan</button>
             </div>
             <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-center">
-                <h3 class="text-xs font-black text-gray-400 uppercase mb-4 tracking-widest text-center">Hadir: <span id="attendance-count">0</span></h3>
+                <h3 class="text-xs font-black text-gray-400 uppercase mb-4 tracking-widest text-center">Total Hadir: <span id="attendance-count">0</span></h3>
                 <div id="attendance-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar text-center"></div>
             </div>
         </div>
@@ -141,14 +143,14 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         let html5QrCode = null;
-        let currentEventId = null;
+        let activeEventId = null;
 
         // AUTH & VIEW TOGGLES
         window.toggleAuth = (type) => {
             const isMember = type === 'member';
             document.getElementById('form-member').classList.toggle('hidden', !isMember);
             document.getElementById('form-gm').classList.toggle('hidden', isMember);
-            document.getElementById('btn-auth-member').className = isMember ? "flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400";
+            document.getElementById('btn-auth-member').className = isMember ? "flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary transition-all" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400";
             document.getElementById('btn-auth-gm').className = !isMember ? "flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400";
         };
 
@@ -173,7 +175,7 @@
         document.getElementById('btn-login-gm').onclick = () => {
             if(document.getElementById('gm-user').value === "admin" && document.getElementById('gm-pass').value === "MATUR2026") {
                 localStorage.setItem('ms_role', 'gm'); location.reload();
-            } else alert("Akses Ditolak!");
+            } else alert("Login Gagal!");
         };
 
         window.logout = () => { localStorage.clear(); location.reload(); };
@@ -192,36 +194,37 @@
                 const rSnap = await getDoc(rRef);
                 if(rSnap.exists()) {
                     await updateDoc(rRef, { points: increment(25) });
-                    await addDoc(collection(db, "history"), { userId: r, activity: "Bonus Referral Baru: " + n, points: 25, date: new Date() });
+                    await addDoc(collection(db, "history"), { userId: r, activity: "Referral Baru: " + n, points: 25, date: new Date() });
                 }
             }
             localStorage.setItem('ms_user_id', id); localStorage.setItem('ms_role', 'member');
             location.reload();
         };
 
-        // MULTI-EVENT LOGIC (GM)
+        // EVENT LOGIC (GM)
         window.createEvent = async () => {
             const name = document.getElementById('ev-name').value;
             const date = document.getElementById('ev-date').value;
             const pts = parseInt(document.getElementById('ev-points').value);
             const loc = document.getElementById('ev-loc').value;
-            if(!name || !loc || !date) return alert("Lengkapi form!");
+            if(!name || !loc || !date) return alert("Harap isi semua form!");
+            
             const evId = "EVT-" + Date.now();
             const evData = { name, date, points: pts, location: loc, status: 'active', id: evId };
-            await setDoc(doc(db, "active_events", evId), evData);
-            showActiveEvent(evId);
+            
+            try {
+                await setDoc(doc(db, "active_events", evId), evData);
+                showActiveEvent(evData);
+            } catch (e) { alert("Error: " + e.message); }
         };
 
-        window.joinEvent = (evId) => {
-            showActiveEvent(evId);
-        };
-
-        async function showActiveEvent(evId) {
-            currentEventId = evId;
+        window.joinEvent = async (evId) => {
             const snap = await getDoc(doc(db, "active_events", evId));
-            if(!snap.exists()) return alert("Event tidak ditemukan!");
-            const data = snap.data();
+            if(snap.exists()) showActiveEvent(snap.data());
+        };
 
+        function showActiveEvent(data) {
+            activeEventId = data.id;
             document.getElementById('gm-event-selector').classList.add('hidden');
             document.getElementById('gm-active-event').classList.remove('hidden');
             document.getElementById('display-ev-name').innerText = data.name;
@@ -236,7 +239,7 @@
             onSnapshot(q, async (snap) => {
                 const list = document.getElementById('attendance-list');
                 document.getElementById('attendance-count').innerText = snap.size;
-                list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-6 text-center italic uppercase">Menunggu scan...</p>' : '';
+                list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-6 text-center italic uppercase">Belum ada scan</p>' : '';
                 for (const change of snap.docs) {
                     const h = change.data();
                     const uSnap = await getDoc(doc(db, "users", h.userId));
@@ -246,7 +249,7 @@
             });
         }
 
-        window.endEvent = async () => { if(confirm("Hentikan event?")) { await deleteDoc(doc(db, "active_events", currentEventId)); location.reload(); } };
+        window.endEvent = async () => { if(confirm("Tutup event ini?")) { await deleteDoc(doc(db, "active_events", activeEventId)); location.reload(); } };
 
         // SCANNER (MEMBER)
         window.openMemberScanner = () => {
@@ -258,7 +261,7 @@
                 if(evSnap.exists() && evSnap.data().status === 'active') {
                     const ev = evSnap.data(); const uid = localStorage.getItem('ms_user_id');
                     const logId = `${uid}_${ev.id}`;
-                    if((await getDoc(doc(db, "history", logId))).exists()) alert("Sudah absen!");
+                    if((await getDoc(doc(db, "history", logId))).exists()) alert("Anda sudah scan di event ini!");
                     else {
                         const uRef = doc(db, "users", uid);
                         const uSnap = await getDoc(uRef);
@@ -266,6 +269,7 @@
                         const newPresenceCount = (uData.presence_count || 0) + 1;
                         await updateDoc(uRef, { points: increment(ev.points), presence_count: newPresenceCount });
                         await setDoc(doc(db, "history", logId), { userId: uid, activityId: ev.id, activity: ev.name, eventDate: ev.date, points: ev.points, date: new Date() });
+                        
                         const rId = uData.referred_by;
                         if(rId && rId !== "ADMIN") {
                             const rRef = doc(db, "users", rId);
@@ -278,13 +282,13 @@
                                 }
                                 if(bonusPoints > 0) {
                                     await updateDoc(rRef, { points: increment(bonusPoints) });
-                                    await addDoc(collection(db, "history"), { userId: rId, activityId: ev.id, activity: `Bonus Dampingi: ${uData.name}`, points: bonusPoints, date: new Date() });
+                                    await addDoc(collection(db, "history"), { userId: rId, activityId: ev.id, activity: `Dampingi: ${uData.name}`, points: bonusPoints, date: new Date() });
                                 }
                             }
                         }
-                        alert(`Berhasil! +${ev.points} Poin.`);
+                        alert("Berhasil! Poin ditambahkan.");
                     }
-                } else alert("QR Salah atau Event Berakhir!");
+                } else alert("QR Tidak Valid!");
                 location.reload();
             });
         };
@@ -298,7 +302,7 @@
                 document.getElementById('tab-gm').classList.remove('hidden');
                 onSnapshot(collection(db, "active_events"), (snap) => {
                     const list = document.getElementById('active-events-list');
-                    list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-2 italic">Belum ada event aktif lain</p>' : '';
+                    list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-2 italic">Tidak ada event dari lokasi lain</p>' : '';
                     snap.forEach(doc => {
                         const d = doc.data();
                         list.innerHTML += `<button onclick="joinEvent('${d.id}')" class="w-full p-4 bg-emerald-50 text-emerald-800 rounded-2xl border border-emerald-100 text-[10px] font-black uppercase text-left">📍 ${d.name} (${d.location})</button>`;
@@ -312,7 +316,6 @@
                     const d = snap.data();
                     document.getElementById('user-points').innerText = d.points.toLocaleString();
                     document.getElementById('user-name').innerText = d.name;
-                    // ID DIPERBESAR DAN DIPERTEBAL
                     document.getElementById('user-id-text').innerText = uid;
                     new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 220, height: 220, colorDark: "#025d3c" });
                     loadUserHistory(uid);
@@ -324,10 +327,10 @@
             const q = query(collection(db, "history"), where("userId", "==", uid), orderBy("date", "desc"), limit(10));
             const snap = await getDocs(q);
             const list = document.getElementById('history-list');
-            list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-10 text-center uppercase tracking-widest font-black">Kosong</p>' : '';
+            list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-10 text-center uppercase tracking-widest font-black text-center">Belum ada aktivitas</p>' : '';
             snap.forEach(doc => {
                 const h = doc.data();
-                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px] text-center"><div class="text-left leading-tight text-center"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary text-center">+${h.points}</span></div>`;
+                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px] text-center"><div class="text-left leading-tight"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary">+${h.points}</span></div>`;
             });
         }
 
