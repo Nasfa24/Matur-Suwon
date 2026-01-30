@@ -10,7 +10,10 @@
     <style>
         :root { --primary: #025d3c; }
         .bg-primary { background-color: var(--primary); }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(24%) sepia(13%) saturate(2285%) hue-rotate(105deg) brightness(95%) contrast(97%);
+            cursor: pointer;
+        }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
@@ -19,13 +22,13 @@
     <div id="tab-awal" class="hidden p-6 max-w-md mx-auto">
         <div class="text-center mb-10 pt-10">
             <h2 class="text-4xl font-black text-[#025d3c] tracking-tighter italic">Matur Suwon</h2>
-            <p class="text-gray-500 text-sm mt-1 font-medium italic">Framework Komunitas</p>
+            <p class="text-gray-500 text-sm mt-1 font-medium italic text-center">Framework Komunitas</p>
         </div>
 
         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
-            <div class="flex bg-gray-50 rounded-full p-1 mb-6">
-                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary transition-all uppercase">Peserta</button>
-                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 transition-all uppercase">Admin GM</button>
+            <div class="flex bg-gray-50 rounded-full p-1 mb-6 text-center">
+                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase">Peserta</button>
+                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase">Admin GM</button>
             </div>
             
             <div id="form-member">
@@ -59,28 +62,30 @@
 
     <div id="tab-anggota" class="hidden p-5 max-w-md mx-auto">
         <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 relative overflow-hidden text-center">
-            <p class="text-xs opacity-80 uppercase tracking-widest font-semibold">Saldo Poin</p>
-            <h1 id="user-points" class="text-6xl font-black mt-2">0</h1>
+            <p class="text-[10px] opacity-80 uppercase tracking-widest font-black">Saldo Poin</p>
+            <h1 id="user-points" class="text-7xl font-black mt-1">0</h1>
             <div class="mt-8 flex flex-col items-center border-t border-white/20 pt-5">
-                <p id="user-name" class="font-bold text-lg uppercase"></p>
-                <p id="user-id-text" class="opacity-60 font-mono text-[10px] mt-1"></p>
+                <p id="user-name" class="font-black text-xl uppercase tracking-tighter"></p>
+                <p id="user-id-text" class="bg-white/10 px-4 py-1.5 rounded-full font-mono text-sm font-black tracking-[0.2em] mt-2"></p>
             </div>
         </div>
-        <div class="grid grid-cols-2 gap-3 mb-6">
+
+        <div class="grid grid-cols-2 gap-3 mb-6 text-center">
             <button onclick="toggleCard('qr')" class="bg-white p-4 rounded-2xl shadow-sm border border-green-100 flex flex-col items-center">
                 <span class="text-2xl mb-1">🆔</span><span class="text-[10px] font-bold text-gray-500 uppercase">ID QR</span>
             </button>
-            <button onclick="openMemberScanner()" class="bg-[#025d3c] p-4 rounded-2xl shadow-lg flex flex-col items-center text-white">
+            <button onclick="openMemberScanner()" class="bg-[#025d3c] p-4 rounded-2xl shadow-lg flex flex-col items-center text-white active:scale-95 transition-all">
                 <span class="text-2xl mb-1">📷</span><span class="text-[10px] font-bold uppercase tracking-wider">Scan Event</span>
             </button>
         </div>
-        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden">
-            <div id="card-qr" class="p-6 text-center">
-                <div id="qrcode-area" class="flex justify-center mb-4"></div>
-                <button onclick="logout()" class="text-[9px] font-black text-red-500 uppercase tracking-widest border border-red-100 px-6 py-2 rounded-full mt-4">Keluar / Ganti HP</button>
+
+        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden text-center">
+            <div id="card-qr" class="p-6">
+                <div id="qrcode-area" class="flex justify-center mb-6"></div>
+                <button onclick="logout()" class="text-[9px] font-black text-red-500 uppercase tracking-widest border border-red-100 px-6 py-2 rounded-full mt-2">Keluar / Ganti HP</button>
             </div>
-            <div id="card-log" class="p-2 max-h-96 overflow-y-auto hide-scrollbar">
-                <h3 class="text-[10px] font-black text-gray-400 uppercase mb-4 text-center tracking-widest">Riwayat Aktivitas</h3>
+            <div id="card-log" class="p-2 max-h-96 overflow-y-auto hide-scrollbar text-center">
+                <h3 class="text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest">Riwayat Aktivitas</h3>
                 <div id="history-list" class="space-y-2"></div>
             </div>
         </div>
@@ -89,7 +94,7 @@
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6 px-2 font-black italic uppercase">
             <h2 class="text-2xl text-gray-800 tracking-tighter">Game Master</h2>
-            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100 uppercase">Logout</button>
+            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100">Logout</button>
         </div>
         <div id="gm-create-event" class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 mb-6">
             <div class="space-y-3">
@@ -105,12 +110,12 @@
         <div id="gm-active-event" class="hidden space-y-4 text-center">
             <div class="bg-white p-8 rounded-[3rem] shadow-2xl border-2 border-primary">
                 <h2 id="display-ev-name" class="text-3xl font-black text-gray-800 uppercase tracking-tighter leading-tight"></h2>
-                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic"></p>
+                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic text-center"></p>
                 <div class="my-6 p-4 bg-gray-50 rounded-[2.5rem] border-2 border-dashed border-gray-200 flex justify-center"><div id="ev-qrcode-area"></div></div>
                 <button onclick="endEvent()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-[10px]">Tutup Kegiatan</button>
             </div>
-            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
-                <h3 class="text-xs font-black text-gray-400 uppercase mb-4 tracking-widest">Hadir: <span id="attendance-count">0</span></h3>
+            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-center">
+                <h3 class="text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest">Hadir: <span id="attendance-count">0</span></h3>
                 <div id="attendance-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar"></div>
             </div>
         </div>
@@ -175,7 +180,6 @@
 
         window.logout = () => { localStorage.clear(); location.reload(); };
 
-        // REGISTRASI DENGAN LOGIKA POINT AWAL
         document.getElementById('btn-proses-daftar').onclick = async () => {
             const n = document.getElementById('reg-name').value;
             const nik = document.getElementById('reg-nik').value;
@@ -187,13 +191,7 @@
             const id = `${now.getFullYear().toString().slice(-2)}${["JAN","FEB","MAR","APR","MEI","JUN","JUL","AGU","SEP","OKT","NOV","DES"][now.getMonth()]}${nik.substring(6,12)}`;
             
             try {
-                // POIN AWAL REGISTRASI +10
-                await setDoc(doc(db, "users", id), { 
-                    name: n, nik: nik, points: 10, referred_by: r, whatsapp: w, role: 'member', 
-                    presence_count: 0, created_at: now 
-                });
-                
-                // JIKA ADA PENGANJAK (REFERRAL) - BONUS AWAL +25
+                await setDoc(doc(db, "users", id), { name: n, nik: nik, points: 10, referred_by: r, whatsapp: w, role: 'member', presence_count: 0, created_at: now });
                 if(r !== "ADMIN") {
                     const rRef = doc(db, "users", r);
                     const rSnap = await getDoc(rRef);
@@ -202,13 +200,11 @@
                         await addDoc(collection(db, "history"), { userId: r, activity: "Bonus Referral Baru: " + n, points: 25, date: now });
                     }
                 }
-
                 localStorage.setItem('ms_user_id', id); localStorage.setItem('ms_role', 'member');
                 location.reload();
             } catch (e) { alert(e.message); }
         };
 
-        // GM EVENT & ACTIVE QR
         document.getElementById('btn-create-event').onclick = async () => {
             const name = document.getElementById('ev-name').value;
             const date = document.getElementById('ev-date').value;
@@ -238,14 +234,13 @@
                     const h = change.data();
                     const uSnap = await getDoc(doc(db, "users", h.userId));
                     const uName = uSnap.exists() ? uSnap.data().name : h.userId;
-                    list.innerHTML += `<div class="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 uppercase font-black text-[9px] tracking-tighter"><span>${uName}</span><span class="text-primary">+${h.points}</span></div>`;
+                    list.innerHTML += `<div class="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border border-gray-100 uppercase font-black text-[9px] tracking-tighter text-center"><span>${uName}</span><span class="text-primary">+${h.points}</span></div>`;
                 }
             });
         }
 
         window.endEvent = async () => { if(confirm("Hentikan event?")) { await setDoc(doc(db, "active_events", "current"), { status: 'ended' }); location.reload(); } };
 
-        // MEMBER SCAN EVENT DENGAN LOGIKA POINT DINAMIS
         window.openMemberScanner = () => {
             document.getElementById('scanner-modal').classList.remove('hidden');
             html5QrCode = new Html5Qrcode("reader");
@@ -255,41 +250,27 @@
                 if(evSnap.exists() && evSnap.data().status === 'active' && evSnap.data().id === txt) {
                     const ev = evSnap.data(); const uid = localStorage.getItem('ms_user_id');
                     const logId = `${uid}_${ev.id}`;
-                    
                     if((await getDoc(doc(db, "history", logId))).exists()) alert("Sudah absen!");
                     else {
                         const uRef = doc(db, "users", uid);
                         const uSnap = await getDoc(uRef);
                         const uData = uSnap.data();
-
-                        // 1. TAMBAH POIN & HITUNG KEHADIRAN MEMBER
                         const newPresenceCount = (uData.presence_count || 0) + 1;
                         await updateDoc(uRef, { points: increment(ev.points), presence_count: newPresenceCount });
                         await setDoc(doc(db, "history", logId), { userId: uid, activityId: ev.id, activity: ev.name, eventDate: ev.date, points: ev.points, date: new Date() });
-
-                        // 2. LOGIKA BONUS REFERRAL UNTUK PENGANJAK
                         const rId = uData.referred_by;
                         if(rId && rId !== "ADMIN") {
                             const rRef = doc(db, "users", rId);
                             const rSnap = await getDoc(rRef);
-                            
                             if(rSnap.exists()) {
                                 let bonusPoints = 0;
-                                
-                                // BONUS +5 JIKA KEHADIRAN MEMBER <= 5
-                                if(newPresenceCount <= 5) {
-                                    bonusPoints = 5;
-                                } else {
-                                    // SETELAH 5X, BONUS +5 HANYA JIKA PENGANJAK JUGA HADIR DI EVENT YANG SAMA
+                                if(newPresenceCount <= 5) { bonusPoints = 5; } else {
                                     const rLogCheck = await getDoc(doc(db, "history", `${rId}_${ev.id}`));
                                     if(rLogCheck.exists()) bonusPoints = 5;
                                 }
-
                                 if(bonusPoints > 0) {
                                     await updateDoc(rRef, { points: increment(bonusPoints) });
-                                    await addDoc(collection(db, "history"), { 
-                                        userId: rId, activityId: ev.id, activity: `Bonus Dampingi: ${uData.name}`, points: bonusPoints, date: new Date() 
-                                    });
+                                    await addDoc(collection(db, "history"), { userId: rId, activityId: ev.id, activity: `Bonus Dampingi: ${uData.name}`, points: bonusPoints, date: new Date() });
                                 }
                             }
                         }
@@ -318,7 +299,7 @@
                     document.getElementById('user-points').innerText = d.points.toLocaleString();
                     document.getElementById('user-name').innerText = d.name;
                     document.getElementById('user-id-text').innerText = "ID: " + uid;
-                    new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 140, height: 140, colorDark: "#025d3c" });
+                    new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 220, height: 220, colorDark: "#025d3c" });
                     loadUserHistory(uid);
                 }
             }
@@ -331,7 +312,7 @@
             list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-10 text-center uppercase tracking-widest font-black">Kosong</p>' : '';
             snap.forEach(doc => {
                 const h = doc.data();
-                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px]"><div class="text-left leading-tight"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary">+${h.points}</span></div>`;
+                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px] text-center"><div class="text-left leading-tight"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary">+${h.points}</span></div>`;
             });
         }
 
