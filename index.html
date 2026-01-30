@@ -11,8 +11,8 @@
         :root { --primary: #025d3c; }
         .bg-primary { background-color: var(--primary); }
         .text-primary { color: var(--primary); }
-        .border-primary { border-color: var(--primary); }
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-[#f0fdf4] pb-24 min-h-screen">
@@ -20,25 +20,22 @@
     <div id="tab-daftar" class="hidden p-6 max-w-md mx-auto">
         <div class="text-center mb-8 pt-10">
             <h2 class="text-3xl font-black text-[#025d3c]">Gabung Komunitas</h2>
-            <p class="text-gray-500 text-sm">Mulai kumpulkan poin dan benefit</p>
+            <p class="text-gray-500 text-sm font-medium italic">Matur Suwon Community</p>
         </div>
         <div class="bg-white p-6 rounded-[2.5rem] shadow-sm border border-green-100">
             <div class="mb-4">
                 <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 ml-2">Nama Lengkap</label>
                 <input type="text" id="reg-name" placeholder="Masukkan nama Anda" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-[#025d3c] outline-none">
             </div>
-            
             <div class="mb-4">
                 <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 ml-2">No. WhatsApp</label>
-                <input type="number" id="reg-wa" placeholder="Contoh: 628123456789" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-[#025d3c] outline-none" oninput="if(this.value.length > 15) this.value = this.value.slice(0, 15);">
-                <p class="text-[9px] text-gray-400 mt-1 ml-2">*Hanya angka, 10-15 digit</p>
+                <input type="number" id="reg-wa" placeholder="Contoh: 628123456789" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-[#025d3c] outline-none">
+                <p class="text-[9px] text-gray-400 mt-1 ml-2">*Angka saja, 10-15 digit</p>
             </div>
-
             <div class="mb-6">
                 <label class="block text-[10px] font-bold uppercase text-gray-400 mb-1 ml-2">ID Pengajak (Opsional)</label>
                 <input type="text" id="reg-ref" placeholder="Contoh: MS-1234" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-[#025d3c] outline-none text-xs uppercase">
             </div>
-
             <button id="btn-proses-daftar" class="w-full bg-[#025d3c] text-white py-4 rounded-2xl font-bold shadow-lg shadow-green-900/20 active:scale-95 transition-all">
                 Daftar Sekarang
             </button>
@@ -46,53 +43,59 @@
     </div>
 
     <div id="tab-anggota" class="hidden p-5 max-w-md mx-auto">
-        <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-8 relative overflow-hidden">
+        <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 relative overflow-hidden">
             <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full"></div>
             <div class="relative z-10">
-                <p class="text-xs opacity-80 uppercase tracking-[0.2em] font-semibold">Saldo Poin Matur Suwon</p>
+                <p class="text-xs opacity-80 uppercase tracking-widest font-semibold">Saldo Poin</p>
                 <div class="flex items-baseline gap-2 mt-2">
                     <h1 id="user-points" class="text-6xl font-black">0</h1>
-                    <span class="text-xl font-light opacity-80">pts</span>
+                    <span class="text-xl opacity-80">pts</span>
                 </div>
-                <div class="mt-8 flex items-center gap-3 border-t border-white/20 pt-5">
-                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-xl">👤</div>
-                    <div>
-                        <p id="user-name" class="font-bold text-sm">Memuat...</p>
-                        <p id="user-id-text" class="text-[10px] opacity-60 font-mono"></p>
-                    </div>
+                <div class="mt-8 flex items-center gap-3 border-t border-white/20 pt-5 text-sm">
+                    <p id="user-name" class="font-bold"></p>
+                    <p id="user-id-text" class="opacity-60 font-mono"></p>
                 </div>
             </div>
         </div>
-        <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-green-100 text-center">
-            <div class="inline-block p-4 bg-[#f0fdf4] rounded-2xl mb-4 text-center">
-                <div id="qrcode-area" class="flex justify-center border-4 border-white shadow-sm rounded-lg overflow-hidden"></div>
+
+        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden">
+            <div class="flex bg-gray-50 rounded-full p-1 mb-4">
+                <button onclick="toggleCard('qr')" id="btn-tab-qr" class="flex-1 py-2 rounded-full text-xs font-bold bg-white shadow-sm text-primary">ID QR</button>
+                <button onclick="toggleCard('log')" id="btn-tab-log" class="flex-1 py-2 rounded-full text-xs font-bold text-gray-400">RIWAYAT</button>
             </div>
-            <h3 class="text-gray-800 font-bold">QR Code Absensi</h3>
-            <p class="text-gray-400 text-xs mt-1 px-4 text-center">Tunjukkan kode ini kepada Game Master di lokasi event.</p>
+
+            <div id="card-qr" class="p-4 text-center">
+                <div id="qrcode-area" class="flex justify-center mb-4"></div>
+                <p class="text-gray-400 text-[10px] px-6 italic">Tunjukkan QR ke Game Master untuk menambah poin</p>
+            </div>
+
+            <div id="card-log" class="hidden p-2 max-h-64 overflow-y-auto hide-scrollbar">
+                <div id="history-list" class="space-y-2">
+                    </div>
+            </div>
         </div>
     </div>
 
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto">
-        <div class="flex items-center gap-3 mb-6">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg text-white">📷</div>
-            <div><h2 class="text-xl font-black text-gray-800">Scanner GM</h2><p class="text-xs text-gray-500 font-medium">Sistem Absensi</p></div>
+        <h2 class="text-xl font-black text-gray-800 mb-4 px-2">📷 Scanner GM</h2>
+        <div id="reader" class="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white bg-black aspect-square"></div>
+        <div id="scan-result" class="mt-6 p-5 bg-emerald-600 text-white rounded-2xl hidden text-center shadow-xl font-bold animate-pulse">
+            ✅ Poin Berhasil Ditambahkan!
         </div>
-        <div id="reader" class="rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white bg-black aspect-square"></div>
-        <div id="scan-result" class="mt-6 p-5 bg-emerald-600 text-white rounded-2xl hidden text-center shadow-xl font-bold">✅ Poin Ditambahkan!</div>
     </div>
 
     <nav id="navbar" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-xs bg-white/90 backdrop-blur-xl border border-green-50 shadow-2xl rounded-full flex justify-around p-2">
-        <button onclick="showTab('anggota')" id="btn-home" class="flex flex-col items-center px-8 py-2 rounded-full transition-all duration-300 bg-primary text-white">
+        <button onclick="showTab('anggota')" id="nav-home" class="flex flex-col items-center px-8 py-2 rounded-full transition-all duration-300 bg-primary text-white">
             <span class="text-xl">🏠</span><span class="text-[9px] font-extrabold uppercase mt-1">Home</span>
         </button>
-        <button onclick="showTab('gm')" id="btn-scan" class="flex flex-col items-center px-8 py-2 rounded-full transition-all duration-300 text-gray-400">
+        <button onclick="showTab('gm')" id="nav-scan" class="flex flex-col items-center px-8 py-2 rounded-full transition-all duration-300 text-gray-400">
             <span class="text-xl">📷</span><span class="text-[9px] font-extrabold uppercase mt-1">Scan</span>
         </button>
     </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc, collection, addDoc, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyA2nV-dKXEl-5ui0WQienkFiQ-XfugDzPE",
@@ -107,79 +110,100 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // UI TOGGLE
         window.showTab = (tab) => {
             const isHome = tab === 'anggota';
             document.getElementById('tab-anggota').classList.toggle('hidden', !isHome);
             document.getElementById('tab-gm').classList.toggle('hidden', isHome);
-            document.getElementById('btn-home').className = isHome ? "flex flex-col items-center px-8 py-2 rounded-full bg-primary text-white" : "flex flex-col items-center px-8 py-2 rounded-full text-gray-400";
-            document.getElementById('btn-scan').className = !isHome ? "flex flex-col items-center px-8 py-2 rounded-full bg-primary text-white" : "flex flex-col items-center px-8 py-2 rounded-full text-gray-400";
+            document.getElementById('nav-home').className = isHome ? "flex flex-col items-center px-8 py-2 rounded-full bg-primary text-white" : "flex flex-col items-center px-8 py-2 rounded-full text-gray-400";
+            document.getElementById('nav-scan').className = !isHome ? "flex flex-col items-center px-8 py-2 rounded-full bg-primary text-white" : "flex flex-col items-center px-8 py-2 rounded-full text-gray-400";
             if(tab === 'gm') startScanner();
         };
 
-        // LOGIKA DAFTAR DENGAN VALIDASI WHATSAPP
-        document.getElementById('btn-proses-daftar').onclick = async () => {
-            const name = document.getElementById('reg-name').value;
-            const wa = document.getElementById('reg-wa').value;
-            const ref = document.getElementById('reg-ref').value || "ADMIN";
-            
-            if(!name) return alert("Nama wajib diisi!");
-            if(wa.length < 10 || wa.length > 15) return alert("Nomor WhatsApp harus 10-15 digit!");
-            
-            try {
-                const newId = "MS-" + Math.floor(1000 + Math.random() * 9000);
-                await setDoc(doc(db, "users", newId), {
-                    name: name,
-                    whatsapp: wa,
-                    points: 0,
-                    referred_by: ref,
-                    role: "member",
-                    created_at: new Date().toISOString()
-                });
-                localStorage.setItem('ms_user_id', newId);
-                location.reload();
-            } catch (e) {
-                alert("Gagal mendaftar: " + e.message);
-            }
+        window.toggleCard = (type) => {
+            const isQr = type === 'qr';
+            document.getElementById('card-qr').classList.toggle('hidden', !isQr);
+            document.getElementById('card-log').classList.toggle('hidden', isQr);
+            document.getElementById('btn-tab-qr').className = isQr ? "flex-1 py-2 rounded-full text-xs font-bold bg-white shadow-sm text-primary" : "flex-1 py-2 rounded-full text-xs font-bold text-gray-400";
+            document.getElementById('btn-tab-log').className = !isQr ? "flex-1 py-2 rounded-full text-xs font-bold bg-white shadow-sm text-primary" : "flex-1 py-2 rounded-full text-xs font-bold text-gray-400";
+            if(!isQr) loadHistory();
         };
 
+        // DAFTAR
+        document.getElementById('btn-proses-daftar').onclick = async () => {
+            const n = document.getElementById('reg-name').value;
+            const w = document.getElementById('reg-wa').value;
+            const r = document.getElementById('reg-ref').value || "ADMIN";
+            if(!n || w.length < 10) return alert("Cek kembali Nama & WA!");
+            
+            const id = "MS-" + Math.floor(1000 + Math.random() * 9000);
+            await setDoc(doc(db, "users", id), { name: n, whatsapp: w, points: 0, referred_by: r });
+            localStorage.setItem('ms_user_id', id);
+            location.reload();
+        };
+
+        // LOAD DATA & HISTORY
         async function loadUserData() {
-            const userId = localStorage.getItem('ms_user_id');
-            if(!userId) {
-                document.getElementById('tab-daftar').classList.remove('hidden');
-                return;
-            }
+            const uid = localStorage.getItem('ms_user_id');
+            if(!uid) return document.getElementById('tab-daftar').classList.remove('hidden');
 
             document.getElementById('tab-anggota').classList.remove('hidden');
             document.getElementById('navbar').classList.remove('hidden');
 
-            const userSnap = await getDoc(doc(db, "users", userId));
-            if(userSnap.exists()) {
-                const data = userSnap.data();
-                document.getElementById('user-points').innerText = data.points.toLocaleString();
-                document.getElementById('user-name').innerText = data.name;
-                document.getElementById('user-id-text').innerText = "ID: " + userId;
-                new QRCode(document.getElementById("qrcode-area"), { text: userId, width: 180, height: 180, colorDark: "#025d3c" });
+            const snap = await getDoc(doc(db, "users", uid));
+            if(snap.exists()) {
+                const d = snap.data();
+                document.getElementById('user-points').innerText = d.points.toLocaleString();
+                document.getElementById('user-name').innerText = d.name;
+                document.getElementById('user-id-text').innerText = "| ID: " + uid;
+                new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 160, height: 160, colorDark: "#025d3c" });
             }
         }
 
+        async function loadHistory() {
+            const uid = localStorage.getItem('ms_user_id');
+            const q = query(collection(db, "history"), where("userId", "==", uid), orderBy("date", "desc"), limit(10));
+            const snap = await getDocs(q);
+            const list = document.getElementById('history-list');
+            list.innerHTML = snap.empty ? '<p class="text-center text-xs text-gray-400 py-4">Belum ada riwayat</p>' : '';
+            snap.forEach(doc => {
+                const h = doc.data();
+                const d = h.date.toDate();
+                list.innerHTML += `
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-xl border border-gray-100">
+                        <div>
+                            <p class="text-[11px] font-bold text-gray-700">${h.activity}</p>
+                            <p class="text-[9px] text-gray-400">${d.toLocaleDateString()} - ${d.toLocaleTimeString()}</p>
+                        </div>
+                        <span class="text-xs font-black text-primary">+${h.points}</span>
+                    </div>`;
+            });
+        }
+
+        // SCANNER
         function startScanner() {
             const scanner = new Html5Qrcode("reader");
             scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, async (txt) => {
                 await scanner.stop();
-                const userRef = doc(db, "users", txt);
-                const snap = await getDoc(userRef);
-                if(snap.exists()){
-                    await updateDoc(userRef, { points: increment(10) });
-                    if(snap.data().referred_by && snap.data().referred_by !== "ADMIN"){
-                        const rRef = doc(db, "users", snap.data().referred_by);
+                const uRef = doc(db, "users", txt);
+                const uSnap = await getDoc(uRef);
+                if(uSnap.exists()) {
+                    // Update Poin & Tambah Log
+                    await updateDoc(uRef, { points: increment(10) });
+                    await addDoc(collection(db, "history"), { userId: txt, activity: "Kehadiran Event", points: 10, date: new Date() });
+
+                    // Referral Bonus
+                    const refId = uSnap.data().referred_by;
+                    if(refId && refId !== "ADMIN") {
+                        const rRef = doc(db, "users", refId);
                         const rSnap = await getDoc(rRef);
-                        if(rSnap.exists()) await updateDoc(rRef, { points: increment(5) });
+                        if(rSnap.exists()) {
+                            await updateDoc(rRef, { points: increment(5) });
+                            await addDoc(collection(db, "history"), { userId: refId, activity: "Bonus Referral", points: 5, date: new Date() });
+                        }
                     }
                     document.getElementById('scan-result').classList.remove('hidden');
-                    setTimeout(() => location.reload(), 2000);
-                } else {
-                    alert("ID tidak ditemukan!");
-                    location.reload();
+                    setTimeout(() => location.reload(), 1500);
                 }
             });
         }
