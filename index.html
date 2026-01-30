@@ -18,32 +18,37 @@
     <div id="tab-awal" class="hidden p-6 max-w-md mx-auto">
         <div class="text-center mb-10 pt-10">
             <h2 class="text-4xl font-black text-[#025d3c] tracking-tighter italic">Matur Suwon</h2>
-            <p class="text-gray-500 text-sm mt-1 font-medium italic">Framework Komunitas</p>
+            <p class="text-gray-500 text-sm mt-1 font-medium italic text-center">Framework Komunitas</p>
         </div>
         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
-            <div class="flex bg-gray-50 rounded-full p-1 mb-6">
-                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary transition-all uppercase">Peserta</button>
-                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 transition-all uppercase">Admin GM</button>
+            <div class="flex bg-gray-50 rounded-full p-1 mb-6 text-center">
+                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase">Peserta</button>
+                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase">Admin GM</button>
             </div>
+            
             <div id="form-member">
                 <div id="member-register-fields" class="space-y-4 text-center">
                     <input type="text" id="reg-name" placeholder="Nama Lengkap sesuai KTP" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
                     <input type="number" id="reg-nik" placeholder="NIK (16 Digit)" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
                     <input type="number" id="reg-wa" placeholder="No. WhatsApp (628...)" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-sm">
                     <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-xs uppercase text-center tracking-widest">
-                    <button id="btn-proses-daftar" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs">Daftar Sekarang</button>
-                    <div class="pt-6 mt-4 border-t border-gray-100"><button onclick="toggleMemberView('login')" class="text-primary text-[10px] font-black uppercase tracking-widest underline">Ganti HP / Masuk dengan NIK</button></div>
+                    <button id="btn-proses-daftar" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Daftar Sekarang</button>
+                    <div class="pt-6 mt-4 border-t border-gray-100 text-center">
+                        <button onclick="toggleMemberView('login')" class="text-primary text-[10px] font-black uppercase tracking-widest underline">Ganti HP / Masuk dengan NIK</button>
+                    </div>
                 </div>
+
                 <div id="member-login-fields" class="hidden space-y-4 text-center">
                     <input type="number" id="login-nik" placeholder="Masukkan NIK Anda" oninput="if(this.value.length > 16) this.value = this.value.slice(0, 16);" class="w-full p-5 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none text-center font-black tracking-widest text-primary text-lg">
-                    <button onclick="restoreByNIK()" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs">Cari Akun Saya</button>
+                    <button onclick="restoreByNIK()" class="w-full bg-primary text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Cari Akun Saya</button>
                     <button onclick="toggleMemberView('register')" class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-4">Kembali</button>
                 </div>
             </div>
-            <div id="form-gm" class="hidden space-y-4">
+
+            <div id="form-gm" class="hidden space-y-4 text-center">
                 <input type="text" id="gm-user" placeholder="Username GM" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
                 <input type="password" id="gm-pass" placeholder="Password" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
-                <button id="btn-login-gm" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold shadow-lg uppercase tracking-widest text-xs">Masuk Console GM</button>
+                <button id="btn-login-gm" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold mt-2 shadow-lg active:scale-95 uppercase tracking-widest text-xs">Masuk Console GM</button>
             </div>
         </div>
     </div>
@@ -52,63 +57,64 @@
         <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 relative overflow-hidden">
             <p class="text-[10px] opacity-80 uppercase tracking-widest font-black">Saldo Poin</p>
             <h1 id="user-points" class="text-7xl font-black mt-1">0</h1>
-            <div class="mt-8 flex flex-col items-center border-t border-white/20 pt-5">
-                <p id="user-name" class="font-black text-xl uppercase tracking-tighter leading-tight"></p>
-                <p id="user-id-text" class="bg-white/10 px-6 py-2 rounded-full font-mono text-lg font-black tracking-[0.2em] mt-3"></p>
+            <div class="mt-8 flex flex-col items-center border-t border-white/20 pt-5 text-center">
+                <p id="user-name" class="font-black text-xl uppercase tracking-tighter leading-tight text-center"></p>
+                <p id="user-id-text" class="bg-white/10 px-6 py-2 rounded-full font-mono text-xl font-black tracking-[0.2em] mt-3 text-center"></p>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-6">
             <button onclick="toggleCard('qr')" class="bg-white p-4 rounded-2xl shadow-sm border border-green-100 flex flex-col items-center">
-                <span class="text-2xl mb-1">🆔</span><span class="text-[10px] font-bold text-gray-500 uppercase">ID QR</span>
+                <span class="text-2xl mb-1 text-center">🆔</span><span class="text-[10px] font-bold text-gray-500 uppercase text-center">ID QR</span>
             </button>
             <button onclick="openMemberScanner()" class="bg-[#025d3c] p-4 rounded-2xl shadow-lg flex flex-col items-center text-white active:scale-95 transition-all">
-                <span class="text-2xl mb-1">📷</span><span class="text-[10px] font-bold uppercase tracking-wider">Scan Event</span>
+                <span class="text-2xl mb-1 text-center">📷</span><span class="text-[10px] font-bold uppercase tracking-wider text-center">Scan Event</span>
             </button>
         </div>
-        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden">
+        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden text-center">
             <div id="card-qr" class="p-6">
                 <div id="qrcode-area" class="flex justify-center mb-4"></div>
                 <button onclick="logout()" class="text-[9px] font-black text-red-500 uppercase tracking-widest border border-red-100 px-6 py-2 rounded-full mt-2">Keluar / Ganti HP</button>
             </div>
-            <div id="card-log" class="p-2 max-h-96 overflow-y-auto hide-scrollbar">
-                <h3 class="text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest">Riwayat Aktivitas</h3>
-                <div id="history-list" class="space-y-2"></div>
+            <div id="card-log" class="p-2 max-h-96 overflow-y-auto hide-scrollbar text-center">
+                <h3 class="text-[10px] font-black text-gray-400 uppercase mb-4 tracking-widest text-center">Riwayat Aktivitas</h3>
+                <div id="history-list" class="space-y-2 text-center"></div>
             </div>
         </div>
     </div>
 
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6 px-2 font-black italic uppercase">
-            <h2 class="text-2xl text-gray-800 tracking-tighter">Game Master</h2>
-            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100">Logout</button>
+            <h2 class="text-2xl text-gray-800 tracking-tighter text-center">Game Master</h2>
+            <button onclick="logout()" class="text-[10px] text-red-500 bg-red-50 px-4 py-2 rounded-full border border-red-100 uppercase">Logout</button>
         </div>
         
         <div id="gm-event-selector" class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 mb-6">
-            <h3 class="font-bold text-gray-700 mb-4 text-center uppercase text-xs tracking-widest">Pilih atau Buat Event</h3>
-            <div id="active-events-list" class="space-y-2 mb-4">
+            <h3 class="font-bold text-gray-700 mb-4 text-center uppercase text-xs tracking-widest">Event Aktif di Lokasi Lain</h3>
+            <div id="active-events-list" class="space-y-2 mb-4 text-center">
                 </div>
-            <hr class="my-4 border-gray-100">
+            <hr class="my-6 border-gray-100">
             <div class="space-y-3">
-                <input type="text" id="ev-name" placeholder="Nama Kegiatan Baru" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm font-bold">
+                <h3 class="font-bold text-gray-700 mb-2 text-center uppercase text-xs tracking-widest">Buat Event di Sini</h3>
+                <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm font-bold">
                 <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-bold text-gray-500 text-sm">
                 <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-black text-primary">
                     <option value="5">Poin: 5</option><option value="10" selected>Poin: 10</option><option value="15">Poin: 15</option>
                 </select>
                 <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: RM Sidodadi)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary text-sm">
-                <button onclick="createEvent()" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Aktifkan Event Baru</button>
+                <button onclick="createEvent()" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-lg uppercase tracking-widest text-xs active:scale-95 transition-all">Aktifkan Event</button>
             </div>
         </div>
 
         <div id="gm-active-event" class="hidden space-y-4 text-center">
-            <div class="bg-white p-8 rounded-[3rem] shadow-2xl border-2 border-primary">
-                <h2 id="display-ev-name" class="text-3xl font-black text-gray-800 uppercase tracking-tighter leading-tight"></h2>
-                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic"></p>
+            <div class="bg-white p-8 rounded-[3rem] shadow-2xl border-2 border-primary text-center">
+                <h2 id="display-ev-name" class="text-3xl font-black text-gray-800 uppercase tracking-tighter leading-tight text-center"></h2>
+                <p id="display-ev-info" class="text-xs text-gray-400 mt-2 font-bold italic text-center text-center"></p>
                 <div class="my-6 p-4 bg-gray-50 rounded-[2.5rem] border-2 border-dashed border-gray-200 flex justify-center"><div id="ev-qrcode-area"></div></div>
                 <button onclick="endEvent()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-black shadow-lg uppercase tracking-widest text-[10px]">Tutup Kegiatan</button>
             </div>
-            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
-                <h3 class="text-xs font-black text-gray-400 uppercase mb-4 tracking-widest">Hadir: <span id="attendance-count">0</span></h3>
-                <div id="attendance-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar"></div>
+            <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-center">
+                <h3 class="text-xs font-black text-gray-400 uppercase mb-4 tracking-widest text-center">Hadir: <span id="attendance-count">0</span></h3>
+                <div id="attendance-list" class="space-y-2 max-h-60 overflow-y-auto hide-scrollbar text-center"></div>
             </div>
         </div>
     </div>
@@ -203,17 +209,19 @@
             const evId = "EVT-" + Date.now();
             const evData = { name, date, points: pts, location: loc, status: 'active', id: evId };
             await setDoc(doc(db, "active_events", evId), evData);
-            showActiveEvent(evData);
+            showActiveEvent(evId);
         };
 
         window.joinEvent = (evId) => {
-            onSnapshot(doc(db, "active_events", evId), (snap) => {
-                if(snap.exists()) showActiveEvent(snap.data());
-            });
+            showActiveEvent(evId);
         };
 
-        function showActiveEvent(data) {
-            currentEventId = data.id;
+        async function showActiveEvent(evId) {
+            currentEventId = evId;
+            const snap = await getDoc(doc(db, "active_events", evId));
+            if(!snap.exists()) return alert("Event tidak ditemukan!");
+            const data = snap.data();
+
             document.getElementById('gm-event-selector').classList.add('hidden');
             document.getElementById('gm-active-event').classList.remove('hidden');
             document.getElementById('display-ev-name').innerText = data.name;
@@ -238,12 +246,7 @@
             });
         }
 
-        window.endEvent = async () => {
-            if(confirm("Hentikan event?")) {
-                await deleteDoc(doc(db, "active_events", currentEventId));
-                location.reload();
-            }
-        };
+        window.endEvent = async () => { if(confirm("Hentikan event?")) { await deleteDoc(doc(db, "active_events", currentEventId)); location.reload(); } };
 
         // SCANNER (MEMBER)
         window.openMemberScanner = () => {
@@ -293,10 +296,9 @@
             if(!role) return document.getElementById('tab-awal').classList.remove('hidden');
             if(role === 'gm') {
                 document.getElementById('tab-gm').classList.remove('hidden');
-                // LOAD LIST EVENT AKTIF DARI LOKASI LAIN
                 onSnapshot(collection(db, "active_events"), (snap) => {
                     const list = document.getElementById('active-events-list');
-                    list.innerHTML = "";
+                    list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-2 italic">Belum ada event aktif lain</p>' : '';
                     snap.forEach(doc => {
                         const d = doc.data();
                         list.innerHTML += `<button onclick="joinEvent('${d.id}')" class="w-full p-4 bg-emerald-50 text-emerald-800 rounded-2xl border border-emerald-100 text-[10px] font-black uppercase text-left">📍 ${d.name} (${d.location})</button>`;
@@ -325,7 +327,7 @@
             list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-300 py-10 text-center uppercase tracking-widest font-black">Kosong</p>' : '';
             snap.forEach(doc => {
                 const h = doc.data();
-                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px]"><div class="text-left leading-tight"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary">+${h.points}</span></div>`;
+                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100 font-black tracking-tighter uppercase text-[10px] text-center"><div class="text-left leading-tight text-center"><p>${h.activity}</p><p class="text-[7px] text-gray-400 mt-0.5">${h.eventDate || ''}</p></div><span class="text-primary text-center">+${h.points}</span></div>`;
             });
         }
 
