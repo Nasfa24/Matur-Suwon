@@ -10,30 +10,25 @@
     <style>
         :root { --primary: #025d3c; }
         .bg-primary { background-color: var(--primary); }
-        .text-primary { color: var(--primary); }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        /* Custom styling untuk date picker agar serasi */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(24%) sepia(13%) saturate(2285%) hue-rotate(105deg) brightness(95%) contrast(97%);
             cursor: pointer;
         }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-[#f0fdf4] pb-24 min-h-screen font-sans">
 
     <div id="tab-awal" class="hidden p-6 max-w-md mx-auto">
         <div class="text-center mb-10 pt-10">
-            <h2 class="text-4xl font-black text-[#025d3c] tracking-tight">Matur Suwon</h2>
+            <h2 class="text-4xl font-black text-[#025d3c]">Matur Suwon</h2>
             <p class="text-gray-500 text-sm mt-2 font-medium italic">Community Framework</p>
         </div>
-
         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100">
             <div class="flex bg-gray-50 rounded-full p-1 mb-6">
-                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-xs font-bold bg-white shadow-sm text-primary transition-all">DAFTAR ANGGOTA</button>
-                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-xs font-bold text-gray-400 transition-all">LOGIN GM</button>
+                <button onclick="toggleAuth('member')" id="btn-auth-member" class="flex-1 py-3 rounded-full text-xs font-bold bg-white shadow-sm text-primary">DAFTAR ANGGOTA</button>
+                <button onclick="toggleAuth('gm')" id="btn-auth-gm" class="flex-1 py-3 rounded-full text-xs font-bold text-gray-400">LOGIN GM</button>
             </div>
-
             <div id="form-member">
                 <div class="space-y-4">
                     <input type="text" id="reg-name" placeholder="Nama Lengkap sesuai KTP" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
@@ -43,7 +38,6 @@
                 </div>
                 <button id="btn-proses-daftar" class="w-full bg-primary text-white py-4 rounded-2xl font-bold mt-6 shadow-lg active:scale-95 transition-all">Daftar Sekarang</button>
             </div>
-
             <div id="form-gm" class="hidden">
                 <div class="space-y-4">
                     <input type="text" id="gm-user" placeholder="Username GM" class="w-full p-4 bg-gray-50 rounded-2xl border-none focus:ring-2 focus:ring-primary outline-none">
@@ -63,23 +57,21 @@
                 <p id="user-id-text" class="opacity-60 font-mono text-xs"></p>
             </div>
         </div>
-
         <div class="grid grid-cols-2 gap-3 mb-6">
             <button onclick="toggleCard('qr')" class="bg-white p-4 rounded-2xl shadow-sm border border-green-100 flex flex-col items-center">
-                <span class="text-2xl mb-1">🆔</span><span class="text-[10px] font-bold text-gray-500 uppercase">Kartu Digital</span>
+                <span class="text-2xl mb-1">🆔</span><span class="text-[10px] font-bold text-gray-500 uppercase">ID Saya</span>
             </button>
             <button onclick="openMemberScanner()" class="bg-[#025d3c] p-4 rounded-2xl shadow-lg flex flex-col items-center text-white">
                 <span class="text-2xl mb-1">📷</span><span class="text-[10px] font-bold uppercase">Scan Event</span>
             </button>
         </div>
-
-        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2">
+        <div class="bg-white rounded-[2rem] shadow-sm border border-green-100 p-2 overflow-hidden">
             <div id="card-qr" class="p-4 text-center">
                 <div id="qrcode-area" class="flex justify-center mb-4"></div>
-                <p class="text-gray-400 text-[10px] italic">Gunakan ID ini jika GM ingin melakukan scan langsung</p>
+                <p class="text-gray-400 text-[10px] italic">Scan barcode ini oleh GM jika diperlukan</p>
             </div>
             <div id="card-log" class="p-2 max-h-80 overflow-y-auto hide-scrollbar">
-                <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3 ml-2 tracking-widest">Riwayat Aktivitas</h3>
+                <h3 class="text-[10px] font-bold text-gray-400 uppercase mb-3 ml-2 tracking-widest text-center">Riwayat Aktivitas</h3>
                 <div id="history-list" class="space-y-2"></div>
             </div>
         </div>
@@ -88,45 +80,34 @@
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto">
         <div class="flex justify-between items-center mb-6 px-2">
             <h2 class="text-2xl font-black text-gray-800 uppercase italic">Game Master</h2>
-            <button onclick="logout()" class="text-[10px] font-bold text-red-500 bg-red-50 px-4 py-2 rounded-full">KELUAR</button>
+            <button onclick="logout()" class="text-[10px] font-bold text-red-500 bg-red-50 px-4 py-2 rounded-full">LOGOUT</button>
         </div>
-
         <div id="gm-create-event" class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 mb-6">
             <h3 class="font-bold text-gray-700 mb-4 ml-1">Buat Event Baru</h3>
             <div class="space-y-3">
-                <input type="text" id="ev-name" placeholder="Nama Kegiatan (Contoh: Rapat Rutin)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary">
-                
-                <div class="relative">
-                    <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-medium text-gray-600">
-                </div>
-
-                <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-bold text-primary">
-                    <option value="5">Poin Hadiah: 5</option>
-                    <option value="10" selected>Poin Hadiah: 10</option>
-                    <option value="15">Poin Hadiah: 15</option>
+                <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary">
+                <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary">
+                <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary font-bold">
+                    <option value="5">Poin: 5</option>
+                    <option value="10" selected>Poin: 10</option>
+                    <option value="15">Poin: 15</option>
                 </select>
-                
-                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Kantor DPC PKB)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary">
+                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Surabaya)" class="w-full p-4 bg-gray-50 rounded-2xl border-none outline-none focus:ring-2 focus:ring-primary">
             </div>
-            <button onclick="createEvent()" class="w-full bg-primary text-white py-4 rounded-2xl font-bold mt-6 shadow-lg shadow-green-900/20 uppercase tracking-widest text-xs">Aktifkan Event</button>
+            <button id="btn-create" class="w-full bg-primary text-white py-4 rounded-2xl font-bold mt-6 shadow-lg uppercase tracking-widest text-xs">Aktifkan Event</button>
         </div>
-
         <div id="gm-active-event" class="hidden bg-white p-6 rounded-[2.5rem] shadow-xl border-2 border-primary text-center">
-            <span class="bg-primary text-white text-[9px] font-bold px-4 py-1 rounded-full uppercase tracking-tighter">Event Sedang Berjalan</span>
-            <h2 id="display-ev-name" class="text-2xl font-black mt-3 text-gray-800 uppercase leading-tight"></h2>
-            <p id="display-ev-info" class="text-xs text-gray-400 mt-1 font-medium italic"></p>
-            
+            <span class="bg-primary text-white text-[9px] font-bold px-4 py-1 rounded-full uppercase">Aktif</span>
+            <h2 id="display-ev-name" class="text-2xl font-black mt-3 text-gray-800 uppercase"></h2>
+            <p id="display-ev-info" class="text-xs text-gray-400 mt-1 italic"></p>
             <div id="ev-qrcode-area" class="flex justify-center my-6 p-4 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200"></div>
-            
-            <p class="text-[10px] text-gray-400 px-4 mb-6 italic font-medium">Instruksikan peserta untuk men-scan barcode di atas melalui aplikasi mereka</p>
-            
-            <button onclick="endEvent()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-red-900/20 uppercase tracking-widest text-xs">Selesai Kegiatan</button>
+            <button onclick="endEvent()" class="w-full bg-red-500 text-white py-4 rounded-2xl font-bold shadow-lg uppercase tracking-widest text-xs">Selesai Kegiatan</button>
         </div>
     </div>
 
     <div id="scanner-modal" class="hidden fixed inset-0 bg-black/90 z-50 flex flex-col p-6 items-center justify-center">
         <div id="reader" class="w-full max-w-sm rounded-[2.5rem] overflow-hidden border-4 border-white aspect-square shadow-2xl"></div>
-        <button onclick="closeScanner()" class="mt-10 text-white font-bold uppercase tracking-widest text-sm bg-white/10 px-8 py-3 rounded-full border border-white/20">Batal / Tutup</button>
+        <button onclick="closeScanner()" class="mt-10 text-white font-bold uppercase tracking-widest text-sm bg-white/10 px-8 py-3 rounded-full">Tutup</button>
     </div>
 
     <script type="module">
@@ -162,28 +143,18 @@
             if(user === "admin" && pass === "MATUR2026") {
                 localStorage.setItem('ms_role', 'gm');
                 location.reload();
-            } else { alert("Akses Ditolak!"); }
+            } else { alert("Login Gagal!"); }
         };
 
         window.logout = () => { localStorage.clear(); location.reload(); };
 
-        // SET DEFAULT DATE TO TODAY
-        document.addEventListener('DOMContentLoaded', () => {
-            const dateInput = document.getElementById('ev-date');
-            if(dateInput) {
-                const today = new Date().toISOString().split('T')[0];
-                dateInput.value = today;
-            }
-        });
-
-        // MEMBER REGISTRATION
+        // MEMBER DAFTAR
         document.getElementById('btn-proses-daftar').onclick = async () => {
             const n = document.getElementById('reg-name').value;
             const nik = document.getElementById('reg-nik').value;
             const w = document.getElementById('reg-wa').value;
             const r = document.getElementById('reg-ref').value || "ADMIN";
-            if(!n || nik.length !== 16 || w.length < 10) return alert("Data tidak valid!");
-            
+            if(!n || nik.length !== 16 || w.length < 10) return alert("Cek data Anda!");
             const now = new Date();
             const id = `${now.getFullYear().toString().slice(-2)}${["JAN","FEB","MAR","APR","MEI","JUN","JUL","AGU","SEP","OKT","NOV","DES"][now.getMonth()]}${nik.substring(6,12)}`;
             await setDoc(doc(db, "users", id), { name: n, points: 0, referred_by: r, whatsapp: w, role: 'member', created_at: now });
@@ -192,20 +163,17 @@
             location.reload();
         };
 
-        // GM EVENT LOGIC
-        window.createEvent = async () => {
+        // EVENT LOGIC
+        document.getElementById('btn-create').onclick = async () => {
             const name = document.getElementById('ev-name').value;
             const date = document.getElementById('ev-date').value;
-            const points = parseInt(document.getElementById('ev-points').value);
+            const pts = parseInt(document.getElementById('ev-points').value);
             const loc = document.getElementById('ev-loc').value;
-            
-            if(!name || !loc || !date) return alert("Harap isi Nama, Tanggal, dan Lokasi!");
-
+            if(!name || !loc || !date) return alert("Lengkapi Form!");
             const evId = "EVT-" + Date.now();
-            const evData = { name, date, points, location: loc, status: 'active', id: evId };
-            
-            await setDoc(doc(db, "active_events", "current"), evData);
-            showActiveEvent(evData);
+            const data = { name, date, points: pts, location: loc, status: 'active', id: evId };
+            await setDoc(doc(db, "active_events", "current"), data);
+            location.reload(); // Reload untuk memicu loadApp dan menampilkan event aktif
         };
 
         function showActiveEvent(data) {
@@ -213,68 +181,49 @@
             document.getElementById('gm-active-event').classList.remove('hidden');
             document.getElementById('display-ev-name').innerText = data.name;
             document.getElementById('display-ev-info').innerText = `${data.date} • ${data.location}`;
-            
             document.getElementById('ev-qrcode-area').innerHTML = "";
-            new QRCode(document.getElementById('ev-qrcode-area'), { text: data.id, width: 220, height: 220, colorDark: "#025d3c" });
+            new QRCode(document.getElementById('ev-qrcode-area'), { text: data.id, width: 200, height: 200, colorDark: "#025d3c" });
         }
 
         window.endEvent = async () => {
-            if(!confirm("Akhiri kegiatan ini? Barcode tidak akan bisa di-scan lagi.")) return;
+            if(!confirm("Akhiri Event?")) return;
             await setDoc(doc(db, "active_events", "current"), { status: 'ended' });
             location.reload();
         };
 
-        // SCANNER LOGIC (PESERTA SCAN EVENT)
+        // SCANNER (MEMBER)
         window.openMemberScanner = () => {
             document.getElementById('scanner-modal').classList.remove('hidden');
             scanner = new Html5Qrcode("reader");
             scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, async (txt) => {
                 await scanner.stop();
                 const evSnap = await getDoc(doc(db, "active_events", "current"));
-                
                 if(evSnap.exists() && evSnap.data().status === 'active' && evSnap.data().id === txt) {
-                    const eventData = evSnap.data();
-                    const userId = localStorage.getItem('ms_user_id');
-                    
-                    const logId = `${userId}_${eventData.id}`;
-                    const logCheck = await getDoc(doc(db, "history", logId));
-                    if(logCheck.exists()) {
-                        alert("Anda sudah melakukan absen di event ini!");
+                    const ev = evSnap.data();
+                    const uid = localStorage.getItem('ms_user_id');
+                    const logId = `${uid}_${ev.id}`;
+                    if((await getDoc(doc(db, "history", logId))).exists()) {
+                        alert("Sudah absen!");
                     } else {
-                        await updateDoc(doc(db, "users", userId), { points: increment(eventData.points) });
-                        await setDoc(doc(db, "history", logId), { 
-                            userId, 
-                            activity: eventData.name, 
-                            eventDate: eventData.date, // Simpan tanggal event
-                            points: eventData.points, 
-                            date: new Date() 
-                        });
-                        alert(`Sukses! +${eventData.points} Poin dari ${eventData.name}`);
+                        await updateDoc(doc(db, "users", uid), { points: increment(ev.points) });
+                        await setDoc(doc(db, "history", logId), { userId: uid, activity: ev.name, eventDate: ev.date, points: ev.points, date: new Date() });
+                        alert("Berhasil!");
                     }
-                } else {
-                    alert("Barcode Event Tidak Valid atau Sudah Berakhir!");
-                }
-                closeScanner();
+                } else { alert("QR Salah/Berakhir!"); }
                 location.reload();
             });
         };
 
-        window.closeScanner = () => {
-            if(scanner) scanner.stop();
-            document.getElementById('scanner-modal').classList.add('hidden');
-        };
+        window.closeScanner = () => { if(scanner) scanner.stop(); document.getElementById('scanner-modal').classList.add('hidden'); };
 
-        // LOAD APP DATA
+        // LOAD DATA
         async function loadApp() {
             const role = localStorage.getItem('ms_role');
             if(!role) return document.getElementById('tab-awal').classList.remove('hidden');
-
             if(role === 'gm') {
                 document.getElementById('tab-gm').classList.remove('hidden');
-                const evSnap = await getDoc(doc(db, "active_events", "current"));
-                if(evSnap.exists() && evSnap.data().status === 'active') {
-                    showActiveEvent(evSnap.data());
-                }
+                const ev = await getDoc(doc(db, "active_events", "current"));
+                if(ev.exists() && ev.data().status === 'active') showActiveEvent(ev.data());
             } else {
                 const uid = localStorage.getItem('ms_user_id');
                 document.getElementById('tab-anggota').classList.remove('hidden');
@@ -291,17 +240,22 @@
         }
 
         async function loadHistory(uid) {
-            const q = query(collection(db, "history"), where("userId", "==", uid), orderBy("date", "desc"), limit(10));
-            const snap = await getDocs(q);
-            const list = document.getElementById('history-list');
-            list.innerHTML = snap.empty ? '<p class="text-[10px] text-gray-400 py-10 text-center">Belum ada riwayat aktivitas</p>' : '';
-            snap.forEach(doc => {
-                const h = doc.data();
-                const displayDate = h.eventDate || h.date.toDate().toLocaleDateString();
-                list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100"><div class="text-left"><p class="text-[11px] font-bold text-gray-700 uppercase">${h.activity}</p><p class="text-[8px] text-gray-400 font-medium">${displayDate}</p></div><span class="text-xs font-black text-primary">+${h.points}</span></div>`;
-            });
+            try {
+                const q = query(collection(db, "history"), where("userId", "==", uid), orderBy("date", "desc"), limit(10));
+                const snap = await getDocs(q);
+                const list = document.getElementById('history-list');
+                list.innerHTML = snap.empty ? '<p class="text-xs text-gray-400 py-10 text-center">Belum ada riwayat</p>' : '';
+                snap.forEach(doc => {
+                    const h = doc.data();
+                    list.innerHTML += `<div class="p-4 bg-gray-50 rounded-2xl mb-2 flex justify-between items-center border border-gray-100"><div class="text-left"><p class="text-[11px] font-bold text-gray-700 uppercase">${h.activity}</p><p class="text-[8px] text-gray-400 font-medium">${h.eventDate || ''}</p></div><span class="text-xs font-black text-primary">+${h.points}</span></div>`;
+                });
+            } catch (e) {
+                console.error("History error: ", e);
+                // Jika error index, Firebase akan memberikan link di console log browser.
+            }
         }
 
+        document.getElementById('ev-date').value = new Date().toISOString().split('T')[0];
         loadApp();
     </script>
 </body>
