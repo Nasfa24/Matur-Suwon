@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matur Suwon - Final Release</title>
+    <title>KONEKTA - Terhubung Lebih Dekat</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root { --primary: #025d3c; --super: #1e1b4b; }
+        :root { --primary: #0f766e; --super: #111827; }
         .bg-primary { background-color: var(--primary); }
         .bg-super { background-color: var(--super); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .nav-active { color: #025d3c; font-weight: 900; border-top: 3px solid #025d3c; }
+        .nav-active { color: #0f766e; font-weight: 900; border-top: 3px solid #0f766e; }
         
-        /* Hapus spinner angka di semua browser */
+        /* Hapus spinner angka */
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
     </style>
@@ -23,13 +23,13 @@
 
     <div id="tab-awal" class="hidden p-6 max-w-md mx-auto text-center">
         <div class="mb-10 pt-10">
-            <h2 class="text-4xl font-black text-[#025d3c] tracking-tighter italic text-center">Matur Suwon</h2>
-            <p class="text-gray-500 text-sm mt-1 font-medium italic text-center">Framework Komunitas</p>
+            <h1 class="text-5xl font-black text-[#0f766e] tracking-tighter mb-2">KONEKTA</h1>
+            <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Terhubung Lebih Dekat</p>
         </div>
         <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-left">
             <div class="flex bg-gray-50 rounded-full p-1 mb-6 text-center">
-                <button id="btn-auth-member" class="flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase">Peserta</button>
-                <button id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase">Admin</button>
+                <button id="btn-auth-member" class="flex-1 py-3 rounded-full text-[11px] font-black bg-white shadow-sm text-primary uppercase tracking-wide">Konektor</button>
+                <button id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[11px] font-black text-gray-400 uppercase tracking-wide">Admin</button>
             </div>
 
             <div id="form-member">
@@ -48,7 +48,7 @@
                     <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" 
                         class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none text-xs uppercase text-left focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
                     
-                    <button id="btn-daftar" class="w-full bg-primary text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg mt-2">Daftar Sekarang</button>
+                    <button id="btn-daftar" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg mt-2 tracking-widest">Gabung Jadi Konektor</button>
                     <button id="btn-goto-login" class="text-primary text-[10px] font-black uppercase underline mt-4 block mx-auto italic text-center">Masuk dengan NIK</button>
                 </div>
                 
@@ -56,8 +56,8 @@
                     <input type="text" inputmode="numeric" id="login-nik" placeholder="16 Digit NIK" 
                         oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" 
                         class="w-full p-5 bg-white rounded-2xl border-2 border-gray-300 focus:border-primary outline-none text-center font-black text-lg tracking-widest text-primary">
-                    <button id="btn-masuk" class="w-full bg-primary text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 shadow-lg">Masuk</button>
-                    <button id="btn-goto-register" class="text-gray-400 text-[10px] font-bold uppercase mt-4 block mx-auto italic text-center">Kembali</button>
+                    <button id="btn-masuk" class="w-full bg-primary text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 shadow-lg">Masuk Aplikasi</button>
+                    <button id="btn-goto-register" class="text-gray-400 text-[10px] font-bold uppercase mt-4 block mx-auto italic text-center">Kembali Mendaftar</button>
                 </div>
             </div>
 
@@ -70,28 +70,32 @@
     </div>
 
     <div id="tab-anggota" class="hidden p-5 max-w-md mx-auto text-center">
-        <div class="bg-primary text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 text-center">
-            <p class="text-[10px] opacity-80 uppercase tracking-widest font-black text-center">Saldo Poin</p>
-            <h1 id="user-points" class="text-7xl font-black mt-1 text-center">0</h1>
-            <div class="mt-8 border-t border-white/20 pt-5 text-center">
-                <p id="user-name" class="font-black text-xl uppercase italic text-center"></p>
-                <p id="user-id-text" class="bg-white/10 px-4 py-1.5 rounded-full font-mono text-xs font-black mt-2 inline-block text-center"></p>
+        <div class="bg-gradient-to-br from-teal-600 to-emerald-800 text-white p-8 rounded-[2.5rem] shadow-2xl mb-6 text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            <p class="text-[10px] opacity-80 uppercase tracking-[0.2em] font-black text-center relative z-10">KONEKTA POIN</p>
+            <h1 id="user-points" class="text-7xl font-black mt-2 text-center relative z-10 tracking-tighter">0</h1>
+            <div class="mt-8 border-t border-white/20 pt-5 text-center relative z-10">
+                <p id="user-name" class="font-black text-xl uppercase italic text-center tracking-wide"></p>
+                <p id="user-id-text" class="bg-black/20 px-4 py-1 rounded-full font-mono text-[10px] font-bold mt-2 inline-block text-center backdrop-blur-sm"></p>
             </div>
         </div>
+        
         <div id="section-qr">
             <div class="grid grid-cols-2 gap-3 mb-4 text-center">
-                <div class="bg-white p-4 rounded-2xl border border-green-100 shadow-sm flex flex-col items-center">
-                    <span class="text-2xl mb-1">🆔</span><span class="text-[9px] font-black text-gray-400 uppercase tracking-widest text-center">ID Member</span>
+                <div class="bg-white p-4 rounded-2xl border border-green-100 shadow-sm flex flex-col items-center justify-center">
+                    <span class="text-2xl mb-1">🆔</span>
+                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest text-center">ID Konektor</span>
                 </div>
-                <button id="btn-scan-event" class="bg-primary text-white p-4 rounded-2xl shadow-lg active:scale-95 flex flex-col items-center">
-                    <span class="text-2xl mb-1">📷</span><span class="text-[9px] font-black uppercase">Scan Event</span>
+                <button id="btn-scan-event" class="bg-white p-4 rounded-2xl border-2 border-dashed border-teal-500 shadow-lg active:scale-95 flex flex-col items-center justify-center group hover:bg-teal-50 transition-all">
+                    <span class="text-2xl mb-1 group-hover:scale-110 transition-transform">📷</span>
+                    <span class="text-[9px] font-black text-teal-600 uppercase tracking-widest">Scan Event</span>
                 </button>
             </div>
             <div class="bg-white rounded-[2.5rem] shadow-sm border border-green-100 p-6 text-center">
-                <div id="qrcode-area" class="flex justify-center mb-6"></div>
-                <h4 class="text-[10px] font-black uppercase text-gray-400 mb-4 italic border-b pb-2 tracking-widest text-center">Riwayat Poin</h4>
+                <div id="qrcode-area" class="flex justify-center mb-6 p-2"></div>
+                <h4 class="text-[10px] font-black uppercase text-gray-400 mb-4 italic border-b pb-2 tracking-widest text-center">Jejak Aktivitas</h4>
                 <div id="history-list" class="space-y-2 max-h-64 overflow-y-auto hide-scrollbar"></div>
-                <button id="btn-logout-member" class="text-[9px] font-black text-red-400 mt-8 block mx-auto underline italic uppercase">Logout</button>
+                <button id="btn-logout-member" class="text-[9px] font-black text-red-400 mt-8 block mx-auto underline italic uppercase">Keluar Aplikasi</button>
             </div>
         </div>
         <div id="section-redeem" class="hidden space-y-4">
@@ -101,80 +105,99 @@
 
     <div id="tab-gm" class="hidden p-5 max-w-md mx-auto text-center">
         <div class="flex justify-between items-center mb-6 px-2">
-            <h2 id="gm-title" class="text-xl font-black uppercase italic text-primary tracking-tighter">Game Master</h2>
-            <button id="btn-logout-gm" class="text-[10px] text-red-500 font-black underline uppercase text-center">Logout</button>
+            <div>
+                <h2 class="text-2xl font-black uppercase text-[#0f766e] tracking-tighter text-left">KONEKTA</h2>
+                <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest text-left">Console Admin</p>
+            </div>
+            <button id="btn-logout-gm" class="bg-red-50 text-red-500 px-4 py-2 rounded-full text-[10px] font-black uppercase hover:bg-red-100 transition-colors">Keluar</button>
         </div>
 
         <div id="super-stats" class="hidden grid grid-cols-1 mb-6 text-center">
-            <div class="bg-super text-white p-6 rounded-[2rem] shadow-xl">
-                <p class="text-[10px] font-black uppercase tracking-widest opacity-60 text-center">Database Komunitas</p>
-                <h3 id="total-members" class="text-4xl font-black mt-1 text-center">0 Member</h3>
-                <button id="btn-export-csv" class="mt-4 w-full bg-white/10 border border-white/20 text-white py-3 rounded-xl text-[9px] font-black uppercase active:scale-95">Download Database (.CSV)</button>
+            <div class="bg-super text-white p-6 rounded-[2rem] shadow-xl relative overflow-hidden">
+                <p class="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 text-center mb-2">Total Populasi</p>
+                <h3 id="total-members" class="text-5xl font-black mt-1 text-center tracking-tighter">0</h3>
+                <p class="text-[10px] opacity-40 uppercase mt-1">Konektor Terdaftar</p>
+                <button id="btn-export-csv" class="mt-6 w-full bg-white/10 border border-white/10 text-white py-3 rounded-xl text-[10px] font-black uppercase active:scale-95 hover:bg-white/20 transition-all">Download Database (.CSV)</button>
             </div>
         </div>
 
-        <div class="flex bg-white rounded-full p-1 mb-6 shadow-sm border border-green-50 text-center">
-            <button id="nav-gm-event" class="flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center">Event</button>
-            <button id="nav-gm-orders" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center">Antrean</button>
+        <div class="flex bg-white rounded-full p-1.5 mb-6 shadow-sm border border-green-50 text-center">
+            <button id="nav-gm-event" class="flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center tracking-wide">Event Manager</button>
+            <button id="nav-gm-orders" class="flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center tracking-wide">Redeem</button>
         </div>
 
         <div id="gm-section-event">
-            <div id="gm-event-selector" class="mb-6 space-y-3">
-                <h3 class="text-[10px] font-black uppercase text-gray-400 italic mb-2 tracking-widest text-center">Pilih Lokasi Aktif:</h3>
-                <div id="active-locations-list" class="space-y-2"></div>
-                <button id="btn-show-create" class="w-full py-4 bg-green-50 border-2 border-dashed border-primary rounded-2xl text-[11px] font-black text-primary uppercase active:scale-95 transition-all text-center shadow-sm">
-                    + Buat Event/Lokasi Baru
+            <div id="gm-event-selector" class="mb-6 space-y-4">
+                <h3 class="text-[10px] font-black uppercase text-gray-400 tracking-widest text-center border-b border-gray-100 pb-2">Lokasi Aktif Hari Ini</h3>
+                <div id="active-locations-list" class="space-y-3"></div>
+                <button id="btn-show-create" class="w-full py-5 bg-white border-2 border-dashed border-teal-200 rounded-3xl text-[11px] font-black text-teal-600 uppercase active:scale-95 transition-all text-center shadow-sm hover:bg-teal-50 group">
+                    <span class="group-hover:scale-110 inline-block transition-transform mr-1">+</span> Buat Event Baru
                 </button>
             </div>
 
-            <div id="gm-create-event" class="hidden bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 space-y-3">
-                <h3 class="text-center font-black uppercase text-lg text-primary">Buat Jadwal Baru</h3>
-                <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm">
-                <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-gray-700 text-center">
-                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Lokasi A)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm">
+            <div id="gm-create-event" class="hidden bg-white p-8 rounded-[3rem] shadow-2xl border border-green-100 space-y-4 relative">
+                <button id="btn-cancel-event" class="absolute top-6 right-6 text-gray-300 hover:text-red-500 font-bold text-xl">×</button>
+                <h3 class="text-center font-black uppercase text-lg text-gray-800 tracking-tight mb-4">Setup Lokasi</h3>
+                
+                <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
+                <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-gray-700 text-center focus:border-primary transition-all">
+                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Zona A)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
                 <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-black text-primary text-center">
                     <option value="5">5 Poin</option>
                     <option value="10" selected>10 Poin</option>
                     <option value="20">20 Poin</option>
                 </select>
-                <button id="btn-submit-event" class="w-full bg-primary text-white py-5 rounded-2xl font-black shadow-lg uppercase text-xs active:scale-95 text-center">AKTIFKAN SEKARANG</button>
-                <button id="btn-cancel-event" class="w-full bg-red-100 text-red-600 font-black uppercase py-3 rounded-xl text-[10px] text-center active:scale-95">Batal / Kembali</button>
+                
+                <button id="btn-submit-event" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-5 rounded-2xl font-black shadow-lg uppercase text-xs active:scale-95 text-center tracking-widest mt-2">AKTIFKAN SEKARANG</button>
             </div>
 
-            <div id="gm-active-display" class="hidden bg-white p-8 rounded-[3rem] shadow-2xl border-4 border-primary text-center">
-                <h2 id="display-ev-name" class="text-2xl font-black italic text-gray-800 uppercase leading-tight text-center"></h2>
-                <p id="display-ev-info" class="text-[10px] font-bold text-gray-400 mt-1 uppercase italic text-center"></p>
-                <div class="my-6 flex justify-center p-2 bg-gray-50 rounded-3xl border border-dashed border-gray-200"><div id="ev-qrcode-area"></div></div>
-                <p class="text-[10px] text-gray-400 mb-4 italic font-bold">Peserta Scan QR di atas, ATAU</p>
+            <div id="gm-active-display" class="hidden bg-white p-8 rounded-[3rem] shadow-2xl border-4 border-teal-500 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-teal-500 animate-pulse"></div>
+                <h2 id="display-ev-name" class="text-3xl font-black italic text-gray-800 uppercase leading-tight text-center mb-1"></h2>
+                <p id="display-ev-info" class="text-[10px] font-bold text-teal-600 mt-1 uppercase tracking-widest text-center bg-teal-50 inline-block px-3 py-1 rounded-full"></p>
                 
-                <button id="btn-gm-scan-member" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-4 flex justify-center items-center gap-2 active:scale-95">
-                    <span>📷</span> Scan QR Peserta
+                <div class="my-8 flex justify-center p-4 bg-white rounded-[2rem] shadow-inner border border-gray-100">
+                    <div id="ev-qrcode-area"></div>
+                </div>
+                
+                <p class="text-[10px] text-gray-400 mb-4 italic font-bold">Konektor Scan QR di atas, ATAU</p>
+                
+                <button id="btn-gm-scan-member" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-4 flex justify-center items-center gap-3 active:scale-95 hover:bg-gray-800 transition-colors">
+                    <span class="text-xl">📷</span> <span class="text-[10px] tracking-widest">Scan QR Konektor</span>
                 </button>
 
-                <button id="btn-close-view" class="w-full bg-gray-200 py-3 rounded-xl text-[9px] font-black uppercase mb-2 active:scale-95 text-gray-700 text-center">Kembali ke List</button>
-                
-                <button id="btn-end-event" class="text-red-500 font-black text-[10px] uppercase underline italic text-center active:scale-95">EVENT SELESAI</button>
+                <div class="flex gap-2">
+                    <button id="btn-close-view" class="flex-1 bg-gray-100 py-3 rounded-xl text-[9px] font-black uppercase active:scale-95 text-gray-500 hover:bg-gray-200">Kembali</button>
+                    <button id="btn-end-event" class="flex-1 bg-red-50 text-red-500 py-3 rounded-xl text-[9px] font-black uppercase active:scale-95 hover:bg-red-100">Event Selesai</button>
+                </div>
             </div>
         </div>
 
-        <div id="gm-section-orders" class="hidden space-y-3">
-            <div id="gm-order-list" class="space-y-3 text-center"></div>
+        <div id="gm-section-orders" class="hidden space-y-4">
+            <div id="gm-order-list" class="space-y-4 text-center"></div>
         </div>
     </div>
 
-    <div id="member-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-around max-w-md mx-auto z-40 text-center">
-        <button id="nav-qr" class="flex flex-col items-center nav-active">
-            <span class="text-xl">🏠</span><span class="text-[8px] font-black uppercase">Home</span>
+    <div id="member-nav" class="hidden fixed bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md border border-gray-200 p-2 rounded-full flex justify-around max-w-sm mx-auto z-40 shadow-2xl">
+        <button id="nav-qr" class="flex-1 py-3 rounded-full flex flex-col items-center justify-center nav-active transition-all">
+            <span class="text-xl mb-0.5">🏠</span><span class="text-[7px] font-black uppercase tracking-widest">Home</span>
         </button>
-        <button id="nav-redeem" class="flex flex-col items-center text-gray-400">
-            <span class="text-xl">🎁</span><span class="text-[8px] font-black uppercase">Redeem</span>
+        <button id="nav-redeem" class="flex-1 py-3 rounded-full flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-all">
+            <span class="text-xl mb-0.5">🎁</span><span class="text-[7px] font-black uppercase tracking-widest">Redeem</span>
         </button>
     </div>
 
-    <div id="scanner-modal" class="hidden fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-10 text-white text-center">
-        <div id="reader" class="w-full max-w-sm rounded-3xl overflow-hidden aspect-square border-2 border-white mb-10 text-center"></div>
-        <p id="scan-instruction" class="text-xs font-bold mb-4 uppercase tracking-widest text-center opacity-80">Arahkan ke QR Code</p>
-        <button id="btn-close-scanner" class="font-black text-xs uppercase tracking-widest opacity-70 text-center bg-white/10 px-6 py-2 rounded-full">Tutup Kamera</button>
+    <div id="scanner-modal" class="hidden fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-6 text-white text-center">
+        <div class="relative w-full max-w-sm aspect-square mb-8">
+            <div id="reader" class="w-full h-full rounded-3xl overflow-hidden border-4 border-teal-500 shadow-[0_0_50px_rgba(20,184,166,0.5)]"></div>
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-xl -mt-2 -ml-2"></div>
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-xl -mt-2 -mr-2"></div>
+            <div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-xl -mb-2 -ml-2"></div>
+            <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-xl -mb-2 -mr-2"></div>
+        </div>
+        
+        <p id="scan-instruction" class="text-sm font-bold mb-8 uppercase tracking-[0.2em] text-teal-400 animate-pulse">Mencari QR Code...</p>
+        <button id="btn-close-scanner" class="bg-white/10 border border-white/20 text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest hover:bg-white/20 transition-all">Tutup Kamera</button>
     </div>
 
     <script type="module">
@@ -202,7 +225,6 @@
             { id: 'R03', name: 'Paket Sembako', cost: 300, type: 'Alamat Lengkap', desc: '(Beras, Gula, Minyak)' }
         ];
 
-        // --- LISTENERS ---
         function setupListeners() {
             document.getElementById('btn-auth-member').onclick = () => toggleAuth('member');
             document.getElementById('btn-auth-gm').onclick = () => toggleAuth('gm');
@@ -230,12 +252,11 @@
             document.getElementById('btn-close-scanner').onclick = closeScanner;
         }
 
-        // --- UTILS ---
         window.toggleAuth = (t) => {
             document.getElementById('form-member').classList.toggle('hidden', t !== 'member');
             document.getElementById('form-gm').classList.toggle('hidden', t !== 'gm');
-            document.getElementById('btn-auth-member').className = t === 'member' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase";
-            document.getElementById('btn-auth-gm').className = t === 'gm' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-white shadow-sm text-primary uppercase" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase";
+            document.getElementById('btn-auth-member').className = t === 'member' ? "flex-1 py-3 rounded-full text-[11px] font-black bg-white shadow-sm text-primary uppercase tracking-wide transition-all" : "flex-1 py-3 rounded-full text-[11px] font-black text-gray-400 uppercase tracking-wide transition-all hover:text-gray-600";
+            document.getElementById('btn-auth-gm').className = t === 'gm' ? "flex-1 py-3 rounded-full text-[11px] font-black bg-white shadow-sm text-primary uppercase tracking-wide transition-all" : "flex-1 py-3 rounded-full text-[11px] font-black text-gray-400 uppercase tracking-wide transition-all hover:text-gray-600";
         };
 
         window.toggleMemberView = (m) => {
@@ -246,33 +267,36 @@
         window.showGMSection = (s) => {
             document.getElementById('gm-section-event').classList.toggle('hidden', s !== 'event');
             document.getElementById('gm-section-orders').classList.toggle('hidden', s !== 'orders');
-            document.getElementById('nav-gm-event').className = s === 'event' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center";
-            document.getElementById('nav-gm-orders').className = s === 'orders' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center";
+            document.getElementById('nav-gm-event').className = s === 'event' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center tracking-wide shadow-sm" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center tracking-wide hover:bg-gray-50";
+            document.getElementById('nav-gm-orders').className = s === 'orders' ? "flex-1 py-3 rounded-full text-[10px] font-black bg-primary text-white uppercase text-center tracking-wide shadow-sm" : "flex-1 py-3 rounded-full text-[10px] font-black text-gray-400 uppercase text-center tracking-wide hover:bg-gray-50";
             if(s === 'orders') loadRedeemOrders();
         };
 
         window.showSection = (s) => {
             document.getElementById('section-qr').classList.toggle('hidden', s !== 'qr');
             document.getElementById('section-redeem').classList.toggle('hidden', s !== 'redeem');
-            document.getElementById('nav-qr').className = s === 'qr' ? 'nav-active flex flex-col items-center' : 'text-gray-400 flex flex-col items-center';
-            document.getElementById('nav-redeem').className = s === 'redeem' ? 'nav-active flex flex-col items-center' : 'text-gray-400 flex flex-col items-center';
+            document.getElementById('nav-qr').className = s === 'qr' ? 'flex-1 py-3 rounded-full flex flex-col items-center justify-center nav-active transition-all' : 'flex-1 py-3 rounded-full flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-all';
+            document.getElementById('nav-redeem').className = s === 'redeem' ? 'flex-1 py-3 rounded-full flex flex-col items-center justify-center nav-active transition-all' : 'flex-1 py-3 rounded-full flex flex-col items-center justify-center text-gray-400 hover:text-gray-600 transition-all';
             if(s === 'redeem') renderCatalog();
         };
 
-        // --- GM LOGIC ---
         window.toggleEventForm = () => {
             document.getElementById('gm-event-selector').classList.toggle('hidden');
             document.getElementById('gm-create-event').classList.toggle('hidden');
         };
 
         window.createEvent = async () => {
-            alert("Memproses...");
+            const btn = document.getElementById('btn-submit-event');
+            btn.innerText = "Memproses...";
             const name = document.getElementById('ev-name').value;
             const date = document.getElementById('ev-date').value;
             const loc = document.getElementById('ev-loc').value;
             const pts = parseInt(document.getElementById('ev-points').value);
 
-            if(!name || !date || !loc) return alert("Lengkapi data!");
+            if(!name || !date || !loc) {
+                btn.innerText = "AKTIFKAN SEKARANG";
+                return alert("Lengkapi data!");
+            }
 
             const eventId = "EVT" + Date.now();
             try {
@@ -281,24 +305,24 @@
                 });
                 alert("Event Berhasil Dibuat!");
                 location.reload();
-            } catch (e) { alert("Error: " + e.message); }
+            } catch (e) { alert("Error: " + e.message); btn.innerText = "AKTIFKAN SEKARANG"; }
         };
 
         window.loadActiveLocations = () => {
             const q = query(collection(db, "active_events"), where("status", "==", "active"));
             onSnapshot(q, (snap) => {
                 const list = document.getElementById('active-locations-list');
-                list.innerHTML = snap.empty ? '<p class="text-center py-6 text-[10px] text-gray-400 italic">BELUM ADA EVENT.</p>' : '';
+                list.innerHTML = snap.empty ? '<p class="text-center py-8 text-[10px] text-gray-300 font-bold uppercase tracking-widest border-2 border-dashed border-gray-100 rounded-3xl">Tidak ada lokasi aktif</p>' : '';
                 snap.forEach(d => {
                     const ev = d.data();
                     const btn = document.createElement('div');
-                    btn.className = "w-full bg-white p-4 rounded-2xl border border-green-200 flex justify-between items-center shadow-sm mb-2 active:scale-95 transition-all cursor-pointer";
+                    btn.className = "w-full bg-white p-5 rounded-3xl border border-gray-100 flex justify-between items-center shadow-sm mb-3 active:scale-95 transition-all cursor-pointer hover:border-teal-200 group";
                     btn.innerHTML = `
                         <div class="text-left leading-tight">
-                            <p class="text-[12px] font-black uppercase text-primary tracking-tight">Lokasi: ${ev.location}</p>
-                            <p class="text-[9px] font-bold text-gray-500 uppercase">${ev.name}</p>
+                            <p class="text-[12px] font-black uppercase text-teal-700 tracking-tight group-hover:text-teal-600 transition-colors">Lokasi: ${ev.location}</p>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${ev.name}</p>
                         </div>
-                        <span class="bg-primary text-white text-[9px] px-4 py-2 rounded-full font-black uppercase shadow-sm">Buka</span>
+                        <span class="bg-teal-50 text-teal-600 text-[9px] px-4 py-2 rounded-full font-black uppercase shadow-sm group-hover:bg-teal-500 group-hover:text-white transition-all">Buka</span>
                     `;
                     btn.onclick = () => selectLocation(ev.id);
                     list.appendChild(btn);
@@ -316,7 +340,7 @@
                 document.getElementById('display-ev-name').innerText = d.name;
                 document.getElementById('display-ev-info').innerText = `${d.date} • ${d.location}`;
                 document.getElementById('ev-qrcode-area').innerHTML = "";
-                new QRCode(document.getElementById('ev-qrcode-area'), { text: eventId, width: 220, height: 220, colorDark: "#025d3c" });
+                new QRCode(document.getElementById('ev-qrcode-area'), { text: eventId, width: 220, height: 220, colorDark: "#0f766e" });
             }
         };
 
@@ -332,7 +356,6 @@
             }
         };
 
-        // --- SCANNER ---
         window.openMemberScannerMode = () => {
             isGmScanning = false;
             document.getElementById('scan-instruction').innerText = "ARAHKAN KE QR CODE EVENT";
@@ -412,7 +435,6 @@
 
         window.closeScanner = () => { if(html5QrCode) html5QrCode.stop(); document.getElementById('scanner-modal').classList.add('hidden'); };
 
-        // --- AUTH & MISC ---
         window.loginAdmin = () => {
             const user = document.getElementById('gm-user').value;
             const pass = document.getElementById('gm-pass').value;
@@ -463,10 +485,9 @@
             snap.forEach(d => { const u = d.data(); csv += `${d.id},${u.name},${u.nik},${u.whatsapp},${u.points}\n`; });
             const blob = new Blob([csv], { type: 'text/csv' });
             const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob); a.download = `Data_MaturSuwon.csv`; a.click();
+            a.href = URL.createObjectURL(blob); a.download = `Data_KONEKTA.csv`; a.click();
         };
 
-        // --- REDEEM & HISTORY ---
         window.processRedeem = async (id, cost, name, type) => {
             const uid = localStorage.getItem('ms_user_id');
             const uSnap = await getDoc(doc(db, "users", uid));
@@ -486,33 +507,43 @@
                 list.innerHTML = snap.empty ? '<p class="text-center py-10 text-[10px] text-gray-300">Kosong</p>' : '';
                 snap.forEach(docSnap => {
                     const o = docSnap.data();
-                    list.innerHTML += `<div class="bg-white p-4 rounded-3xl border border-green-100 shadow-sm text-center mb-2">
-                        <p class="text-[10px] font-black text-primary uppercase">${o.userName}</p>
-                        <p class="text-xs font-black uppercase mb-2">${o.itemName}</p>
-                        <div class="bg-gray-50 p-3 rounded-xl text-[10px] break-all mb-3 italic">${o.targetInfo}</div>
+                    list.innerHTML += `<div class="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm text-center mb-3">
+                        <p class="text-[11px] font-black text-teal-700 uppercase tracking-wide">${o.userName}</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase mb-3">${o.itemName}</p>
+                        <div class="bg-gray-50 p-3 rounded-xl text-[10px] break-all mb-4 italic text-gray-600 border border-gray-100">${o.targetInfo}</div>
                         <div class="flex gap-2">
-                            <a href="https://wa.me/${o.userWA}" class="flex-1 bg-green-500 text-white text-center py-3 rounded-2xl text-[9px] font-black uppercase">WA</a>
-                            <button onclick="completeOrder('${docSnap.id}')" class="flex-1 bg-gray-800 text-white py-3 rounded-2xl text-[9px] font-black uppercase">Selesai</button>
+                            <a href="https://wa.me/${o.userWA}" class="flex-1 bg-emerald-50 text-emerald-600 text-center py-3 rounded-2xl text-[9px] font-black uppercase hover:bg-emerald-100 transition-colors">WhatsApp</a>
+                            <button onclick="completeOrder('${docSnap.id}')" class="flex-1 bg-gray-800 text-white py-3 rounded-2xl text-[9px] font-black uppercase hover:bg-gray-700 transition-colors">Selesai</button>
                         </div></div>`;
                 });
             });
         }
         window.completeOrder = async (id) => { if(confirm("Selesai?")) await deleteDoc(doc(db, "redeem_orders", id)); };
 
+        function renderCatalog() {
+            document.getElementById('redeem-catalog').innerHTML = CATALOG.map(i => `
+                <div class="bg-white p-5 rounded-3xl flex items-center justify-between border border-gray-100 shadow-sm hover:border-teal-100 transition-all group">
+                    <div class="text-left leading-tight">
+                        <p class="font-black text-xs uppercase italic text-gray-800">${i.name}</p>
+                        <p class="text-teal-600 font-bold text-[10px] group-hover:text-teal-500">${i.cost} Poin</p>
+                    </div>
+                    <button onclick="processRedeem('${i.id}', ${i.cost}, '${i.name}', '${i.type}')" class="bg-gray-900 text-white text-[9px] font-black px-6 py-3 rounded-full shadow-lg active:scale-95 hover:bg-gray-700 transition-all tracking-widest">TUKAR</button>
+                </div>`).join('');
+        }
+
         function loadHistory(uid) {
             const q = query(collection(db, "history"), where("userId", "==", uid));
             onSnapshot(q, (snap) => {
                 const list = document.getElementById('history-list');
-                if(snap.empty) { list.innerHTML = '<p class="text-[9px] text-gray-300 py-6 uppercase font-black text-center">Kosong</p>'; return; }
+                if(snap.empty) { list.innerHTML = '<p class="text-[9px] text-gray-300 py-6 uppercase font-black text-center italic">Belum ada riwayat</p>'; return; }
                 const docs = snap.docs.map(d => d.data()).sort((a,b) => (b.date?.seconds || 0) - (a.date?.seconds || 0));
-                list.innerHTML = docs.map(h => `<div class="p-3 bg-gray-50 rounded-2xl flex justify-between items-center text-[9px] font-black uppercase border mb-1">
-                    <div class="text-left leading-tight"><p>${h.activity}</p><p class="text-[7px] text-gray-400">${h.eventDate || ''}</p></div>
-                    <span class="${h.points < 0 ? 'text-red-500' : 'text-primary'} text-sm">${h.points < 0 ? '' : '+'}${h.points}</span>
+                list.innerHTML = docs.map(h => `<div class="p-4 bg-gray-50 rounded-2xl flex justify-between items-center text-[10px] font-bold uppercase border border-gray-100 mb-2">
+                    <div class="text-left leading-tight"><p class="text-gray-700">${h.activity}</p><p class="text-[8px] text-gray-400 font-medium mt-0.5">${h.eventDate || 'Hari ini'}</p></div>
+                    <span class="${h.points < 0 ? 'text-red-500' : 'text-teal-600'} text-xs font-black bg-white px-2 py-1 rounded-lg shadow-sm border border-gray-100">${h.points < 0 ? '' : '+'}${h.points}</span>
                 </div>`).join('');
             });
         }
 
-        // --- INIT ---
         async function loadApp() {
             setupListeners();
             const role = localStorage.getItem('ms_role');
@@ -523,7 +554,7 @@
                 if(role === 'super_gm') {
                     document.getElementById('super-stats').classList.remove('hidden');
                     const mSnap = await getDocs(collection(db, "users"));
-                    document.getElementById('total-members').innerText = `${mSnap.size} Member`;
+                    document.getElementById('total-members').innerText = `${mSnap.size}`;
                 }
                 loadActiveLocations();
             } else {
@@ -536,7 +567,7 @@
                     document.getElementById('user-points').innerText = d.points.toLocaleString();
                     document.getElementById('user-name').innerText = d.name;
                     document.getElementById('user-id-text').innerText = "ID: " + uid;
-                    new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 200, height: 200, colorDark: "#025d3c" });
+                    new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 200, height: 200, colorDark: "#0f766e" });
                     loadHistory(uid);
                 }
             }
