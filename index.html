@@ -13,8 +13,6 @@
         .bg-super { background-color: var(--super); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .nav-active { color: #0f766e; font-weight: 900; border-top: 3px solid #0f766e; }
-        
-        /* Hapus spinner angka di semua browser */
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
     </style>
@@ -25,8 +23,17 @@
         <div class="mb-10 pt-10">
             <h1 class="text-5xl font-black text-[#0f766e] tracking-tighter mb-2">KONEKTA</h1>
             <p class="text-gray-500 text-sm font-medium tracking-widest uppercase">Terhubung Lebih Dekat</p>
+            
+            <div class="mt-8 mb-4 px-2">
+                <h3 class="text-lg font-black text-gray-800 italic mb-2">"Satu Aplikasi, Ribuan Koneksi."</h3>
+                <p class="text-gray-600 text-xs leading-relaxed font-medium">
+                    <span class="text-teal-700 font-bold">KONEKTA</span> adalah ekosistem digital untuk kita melangkah bersama. 
+                    Jadikan setiap kehadiranmu bermakna, catat jejak aktivitasmu, dan nikmati apresiasi nyata dari komunitas.
+                </p>
+            </div>
         </div>
-        <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-left">
+
+        <div class="bg-white p-6 rounded-[2.5rem] shadow-xl border border-green-100 text-left relative z-10">
             <div class="flex bg-gray-50 rounded-full p-1 mb-6 text-center">
                 <button id="btn-auth-member" class="flex-1 py-3 rounded-full text-[11px] font-black bg-white shadow-sm text-primary uppercase tracking-wide">Konektor</button>
                 <button id="btn-auth-gm" class="flex-1 py-3 rounded-full text-[11px] font-black text-gray-400 uppercase tracking-wide">Game Master</button>
@@ -34,28 +41,15 @@
 
             <div id="form-member">
                 <div id="member-register-fields" class="space-y-4">
-                    <input type="text" id="reg-name" placeholder="Nama Lengkap" 
-                        class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
-                    
-                    <input type="text" inputmode="numeric" id="reg-nik" placeholder="NIK (16 Digit)" 
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" 
-                        class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
-                    
-                    <input type="text" inputmode="numeric" id="reg-wa" placeholder="No. WhatsApp" 
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '')" 
-                        class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
-                    
-                    <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" 
-                        class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none text-xs uppercase text-left focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
-                    
+                    <input type="text" id="reg-name" placeholder="Nama Lengkap" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
+                    <input type="text" inputmode="numeric" id="reg-nik" placeholder="NIK (16 Digit)" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
+                    <input type="text" inputmode="numeric" id="reg-wa" placeholder="No. WhatsApp" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
+                    <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none text-xs uppercase text-left focus:border-primary focus:ring-0 transition-all font-bold text-gray-700">
                     <button id="btn-daftar" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg mt-2 tracking-widest">Gabung Jadi Konektor</button>
                     <button id="btn-goto-login" class="text-primary text-[10px] font-black uppercase underline mt-4 block mx-auto italic text-center">Masuk dengan NIK</button>
                 </div>
-                
                 <div id="member-login-fields" class="hidden space-y-3 text-center">
-                    <input type="text" inputmode="numeric" id="login-nik" placeholder="16 Digit NIK" 
-                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" 
-                        class="w-full p-5 bg-white rounded-2xl border-2 border-gray-300 focus:border-primary outline-none text-center font-black text-lg tracking-widest text-primary">
+                    <input type="text" inputmode="numeric" id="login-nik" placeholder="16 Digit NIK" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" class="w-full p-5 bg-white rounded-2xl border-2 border-gray-300 focus:border-primary outline-none text-center font-black text-lg tracking-widest text-primary">
                     <button id="btn-masuk" class="w-full bg-primary text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 shadow-lg">Masuk Aplikasi</button>
                     <button id="btn-goto-register" class="text-gray-400 text-[10px] font-bold uppercase mt-4 block mx-auto italic text-center">Kembali Mendaftar</button>
                 </div>
@@ -67,6 +61,10 @@
                 <button id="btn-login-gm" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold uppercase text-xs active:scale-95 shadow-lg">Login Console</button>
             </div>
         </div>
+
+        <button id="btn-open-guide" class="mt-8 text-teal-700 font-bold text-xs uppercase tracking-widest bg-white/50 px-6 py-3 rounded-full border border-teal-100 hover:bg-white transition-all shadow-sm">
+            📘 Baca Panduan Pengguna
+        </button>
     </div>
 
     <div id="tab-anggota" class="hidden p-5 max-w-md mx-auto text-center">
@@ -138,16 +136,12 @@
             <div id="gm-create-event" class="hidden bg-white p-8 rounded-[3rem] shadow-2xl border border-green-100 space-y-4 relative">
                 <button id="btn-cancel-event" class="absolute top-6 right-6 text-gray-300 hover:text-red-500 font-bold text-xl">×</button>
                 <h3 class="text-center font-black uppercase text-lg text-gray-800 tracking-tight mb-4">Setup Lokasi</h3>
-                
                 <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
                 <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-gray-700 text-center focus:border-primary transition-all">
                 <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Zona A)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
                 <select id="ev-points" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-black text-primary text-center">
-                    <option value="5">5 Poin</option>
-                    <option value="10" selected>10 Poin</option>
-                    <option value="20">20 Poin</option>
+                    <option value="5">5 Poin</option><option value="10" selected>10 Poin</option><option value="20">20 Poin</option>
                 </select>
-                
                 <button id="btn-submit-event" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-5 rounded-2xl font-black shadow-lg uppercase text-xs active:scale-95 text-center tracking-widest mt-2">AKTIFKAN SEKARANG</button>
             </div>
 
@@ -155,17 +149,11 @@
                 <div class="absolute top-0 left-0 w-full h-2 bg-teal-500 animate-pulse"></div>
                 <h2 id="display-ev-name" class="text-3xl font-black italic text-gray-800 uppercase leading-tight text-center mb-1"></h2>
                 <p id="display-ev-info" class="text-[10px] font-bold text-teal-600 mt-1 uppercase tracking-widest text-center bg-teal-50 inline-block px-3 py-1 rounded-full"></p>
-                
-                <div class="my-8 flex justify-center p-4 bg-white rounded-[2rem] shadow-inner border border-gray-100">
-                    <div id="ev-qrcode-area"></div>
-                </div>
-                
+                <div class="my-8 flex justify-center p-4 bg-white rounded-[2rem] shadow-inner border border-gray-100"><div id="ev-qrcode-area"></div></div>
                 <p class="text-[10px] text-gray-400 mb-4 italic font-bold">Konektor Scan QR di atas, ATAU</p>
-                
                 <button id="btn-gm-scan-member" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-4 flex justify-center items-center gap-3 active:scale-95 hover:bg-gray-800 transition-colors">
                     <span class="text-xl">📷</span> <span class="text-[10px] tracking-widest">Scan QR Konektor</span>
                 </button>
-
                 <div class="flex gap-2">
                     <button id="btn-close-view" class="flex-1 bg-gray-100 py-3 rounded-xl text-[9px] font-black uppercase active:scale-95 text-gray-500 hover:bg-gray-200">Kembali</button>
                     <button id="btn-end-event" class="flex-1 bg-red-50 text-red-500 py-3 rounded-xl text-[9px] font-black uppercase active:scale-95 hover:bg-red-100">Event Selesai</button>
@@ -187,6 +175,39 @@
         </button>
     </div>
 
+    <div id="guide-modal" class="hidden fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-[2rem] w-full max-w-md max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative">
+            <button id="btn-close-guide" class="absolute top-4 right-4 bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-red-500 font-bold transition-all z-10">✕</button>
+            <div class="p-6 overflow-y-auto">
+                <h2 class="text-2xl font-black text-[#0f766e] mb-1">PANDUAN KONEKTA</h2>
+                <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest mb-6">Cara Penggunaan</p>
+
+                <div class="mb-8">
+                    <h3 class="font-black text-gray-800 text-lg mb-2 flex items-center gap-2"><span class="bg-teal-100 text-teal-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">A</span> Untuk Konektor</h3>
+                    <ol class="list-decimal pl-5 space-y-2 text-sm text-gray-600 font-medium">
+                        <li><strong>Daftar:</strong> Isi Nama, NIK, dan WA di halaman depan, lalu klik "Gabung". Simpan screenshot ID Anda.</li>
+                        <li><strong>Absen:</strong> Klik tombol "📷 SCAN EVENT", lalu arahkan kamera ke QR Code yang dipegang Panitia (GM).</li>
+                        <li><strong>Cek Poin:</strong> Poin akan bertambah otomatis setelah scan berhasil.</li>
+                        <li><strong>Tukar Hadiah:</strong> Masuk menu "Redeem", pilih hadiah, dan klik "Tukar".</li>
+                    </ol>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-black text-gray-800 text-lg mb-2 flex items-center gap-2"><span class="bg-gray-200 text-gray-700 w-6 h-6 rounded-full flex items-center justify-center text-xs">B</span> Untuk Game Master</h3>
+                    <ol class="list-decimal pl-5 space-y-2 text-sm text-gray-600 font-medium">
+                        <li><strong>Buka Event:</strong> Login GM -> Buat Event Baru -> Isi Data -> Aktifkan.</li>
+                        <li><strong>Mode Pasif:</strong> Tunjukkan QR Code di layar HP Anda ke peserta untuk discan.</li>
+                        <li><strong>Mode Aktif:</strong> Klik "Scan QR Konektor" untuk men-scan ID peserta secara manual (jika peserta kesulitan).</li>
+                        <li><strong>Selesai:</strong> Klik "Event Selesai" untuk menutup sesi absensi.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-100 bg-gray-50 text-center">
+                <button id="btn-close-guide-btm" class="w-full bg-[#0f766e] text-white py-3 rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg active:scale-95">Saya Mengerti</button>
+            </div>
+        </div>
+    </div>
+
     <div id="scanner-modal" class="hidden fixed inset-0 bg-black/95 z-50 flex flex-col items-center justify-center p-6 text-white text-center">
         <div class="relative w-full max-w-sm aspect-square mb-8">
             <div id="reader" class="w-full h-full rounded-3xl overflow-hidden border-4 border-teal-500 shadow-[0_0_50px_rgba(20,184,166,0.5)]"></div>
@@ -195,7 +216,6 @@
             <div class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-xl -mb-2 -ml-2"></div>
             <div class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-xl -mb-2 -mr-2"></div>
         </div>
-        
         <p id="scan-instruction" class="text-sm font-bold mb-8 uppercase tracking-[0.2em] text-teal-400 animate-pulse">Mencari QR Code...</p>
         <button id="btn-close-scanner" class="bg-white/10 border border-white/20 text-white px-8 py-3 rounded-full text-xs font-black uppercase tracking-widest hover:bg-white/20 transition-all">Tutup Kamera</button>
     </div>
@@ -250,7 +270,15 @@
             document.getElementById('nav-redeem').onclick = () => showSection('redeem');
             document.getElementById('btn-scan-event').onclick = openMemberScannerMode;
             document.getElementById('btn-close-scanner').onclick = closeScanner;
+
+            // Guide Listeners
+            document.getElementById('btn-open-guide').onclick = openGuide;
+            document.getElementById('btn-close-guide').onclick = closeGuide;
+            document.getElementById('btn-close-guide-btm').onclick = closeGuide;
         }
+
+        window.openGuide = () => { document.getElementById('guide-modal').classList.remove('hidden'); }
+        window.closeGuide = () => { document.getElementById('guide-modal').classList.add('hidden'); }
 
         window.toggleAuth = (t) => {
             document.getElementById('form-member').classList.toggle('hidden', t !== 'member');
@@ -438,7 +466,7 @@
         window.loginAdmin = () => {
             const user = document.getElementById('gm-user').value;
             const pass = document.getElementById('gm-pass').value;
-            const securePass = btoa(pass); // Obfuscation Sederhana
+            const securePass = btoa(pass); 
 
             if(user === "supergm" && securePass === "amFudWFyaTIwMjY=") {
                 localStorage.setItem('ms_role', 'super_gm'); location.reload();
