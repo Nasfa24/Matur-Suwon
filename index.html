@@ -210,11 +210,11 @@
                 <div class="absolute top-0 left-0 w-full h-2 bg-teal-500 animate-pulse"></div>
                 <h2 id="display-ev-name" class="text-3xl font-black italic text-gray-800 uppercase leading-tight text-center mb-1"></h2>
                 <p id="display-ev-info" class="text-[10px] font-bold text-teal-600 mt-1 uppercase tracking-widest text-center bg-teal-50 inline-block px-3 py-1 rounded-full"></p>
+                
                 <p id="display-ev-creator" class="text-[9px] text-gray-400 mt-2 font-black uppercase tracking-widest"></p>
 
                 <div class="my-8 flex justify-center p-4 bg-white rounded-[2rem] shadow-inner border border-gray-100"><div id="ev-qrcode-area"></div></div>
                 <p class="text-[10px] text-gray-400 mb-4 italic font-bold">Konektor Scan QR di atas, ATAU</p>
-                
                 <button id="btn-gm-scan-member" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-2 flex justify-center items-center gap-3 active:scale-95 hover:bg-gray-800 transition-colors">
                     <span class="text-xl">📷</span> <span class="text-[10px] tracking-widest">Scan QR Konektor</span>
                 </button>
@@ -251,7 +251,8 @@
                             <th class="p-4 border-b border-teal-100 text-right">Waktu</th>
                         </tr>
                     </thead>
-                    <tbody id="attendee-list-body" class="text-xs font-bold text-gray-600"></tbody>
+                    <tbody id="attendee-list-body" class="text-xs font-bold text-gray-600">
+                        </tbody>
                 </table>
             </div>
             <div class="p-4 border-t border-gray-100 bg-gray-50">
@@ -275,8 +276,35 @@
         <div class="bg-white rounded-[2rem] w-full max-w-md max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative">
             <button id="btn-close-guide" class="absolute top-4 right-4 bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-red-500 font-bold transition-all z-10">✕</button>
             <div class="p-6 overflow-y-auto">
-                <h3 class="font-black text-gray-800 text-lg mb-4">Panduan Singkat</h3>
-                <p class="text-sm text-gray-600">Gunakan fitur ini untuk memahami cara kerja aplikasi KONEKTA bagi Member dan Game Master.</p>
+                <div class="mb-8">
+                    <h3 class="font-black text-gray-800 text-lg mb-4 flex items-center gap-3">
+                        <span class="bg-teal-100 text-teal-700 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">A</span> 
+                        Untuk Konektor
+                    </h3>
+                    <ol class="list-decimal pl-10 text-sm text-gray-600 space-y-3 font-medium leading-relaxed">
+                        <li><strong>Daftar:</strong> Isi Nama, NIK, dan WA di halaman depan, lalu klik "Gabung". Simpan screenshot ID Anda.</li>
+                        <li><strong>Absen:</strong> Klik tombol "📷 SCAN EVENT", lalu arahkan kamera ke QR Code yang dipegang Panitia (GM).</li>
+                        <li><strong>Cek Poin:</strong> Poin akan bertambah otomatis setelah scan berhasil.</li>
+                        <li><strong>Tukar Hadiah:</strong> Masuk menu "Redeem", pilih hadiah, dan klik "Tukar".</li>
+                    </ol>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="font-black text-gray-800 text-lg mb-4 flex items-center gap-3">
+                        <span class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">B</span> 
+                        Untuk Game Master
+                    </h3>
+                    <ol class="list-decimal pl-10 text-sm text-gray-600 space-y-3 font-medium leading-relaxed">
+                        <li><strong>Buka Event:</strong> Login GM -> Buat Event Baru -> Isi Data -> Aktifkan.</li>
+                        <li><strong>Mode Pasif:</strong> Tunjukkan QR Code di layar HP Anda ke peserta untuk discan.</li>
+                        <li><strong>Mode Aktif:</strong> Klik "Scan QR Konektor" untuk men-scan ID peserta secara manual (jika peserta kesulitan).</li>
+                        <li><strong>Audit:</strong> Gunakan fitur Audit WA untuk validasi event yang mencurigakan.</li>
+                        <li><strong>Selesai:</strong> Klik "Event Selesai" untuk menutup sesi absensi.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="p-5 border-t border-gray-100 bg-gray-50 text-center">
+                <button id="btn-close-guide-btm" class="w-full bg-[#0f766e] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest shadow-lg active:scale-95 hover:bg-teal-800 transition-colors">Saya Mengerti</button>
             </div>
         </div>
     </div>
@@ -364,6 +392,8 @@
 
             document.getElementById('btn-open-guide').onclick = openGuide;
             document.getElementById('btn-close-guide').onclick = closeGuide;
+            // LISTENER UNTUK TOMBOL TUTUP PANDUAN DI BAWAH
+            document.getElementById('btn-close-guide-btm').onclick = closeGuide;
 
             document.getElementById('btn-view-regions').onclick = openRegionStats;
             document.getElementById('btn-close-regions').onclick = closeRegionStats;
@@ -372,7 +402,6 @@
             document.getElementById('btn-close-attendee').onclick = closeAttendeeList;
             document.getElementById('btn-download-attendee-csv').onclick = downloadAttendeeCSV;
 
-            // LISTENER TOMBOL ARSIP BARU
             document.getElementById('btn-view-archive').onclick = loadEventHistory;
         }
 
@@ -410,17 +439,15 @@
             const list = document.getElementById('archive-items');
             list.innerHTML = "<p class='text-center py-4 text-[10px] text-gray-400'>Memuat data...</p>";
             document.getElementById('gm-archive-list').classList.remove('hidden');
-            document.getElementById('active-locations-list').classList.add('hidden'); // Sembunyikan yg aktif dulu
+            document.getElementById('active-locations-list').classList.add('hidden'); 
 
-            const q = query(collection(db, "active_events"), where("status", "==", "ended"), limit(20)); // Limit 20 terakhir
+            const q = query(collection(db, "active_events"), where("status", "==", "ended"), limit(20)); 
             const snap = await getDocs(q);
 
             list.innerHTML = snap.empty ? '<p class="text-center py-4 text-[10px] text-gray-400 italic">Belum ada event selesai.</p>' : '';
             
             snap.forEach(d => {
                 const ev = d.data();
-                
-                // CEK APAKAH ADA NOMOR WA (Data Lama mungkin tidak punya)
                 let auditBtn = '';
                 if(ev.creatorWA) {
                      const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${ev.date}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
@@ -601,7 +628,6 @@
                 snap.forEach(d => {
                     const ev = d.data();
                     
-                    // WHATSAPP URL ENCODING FIX
                     const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${ev.date}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
                     const waLink = `https://wa.me/${ev.creatorWA}?text=${encodeURIComponent(waMessage)}`;
                     
@@ -650,7 +676,6 @@
                 const role = localStorage.getItem('ms_role');
                 if(role === 'super_gm') {
                     const btnEnd = document.getElementById('btn-end-event');
-                    // JIKA EVENT SUDAH SELESAI (ENDED), TOMBOL JADI "HAPUS PERMANEN"
                     if(d.status === 'ended') {
                         btnEnd.innerText = "HAPUS EVENT & TARIK POIN";
                         btnEnd.classList.remove('hidden');
@@ -659,13 +684,12 @@
                         btnEnd.classList.remove('hidden');
                     }
                 } else {
-                    // GM BIASA
                     const btnEnd = document.getElementById('btn-end-event');
                     if(d.status === 'active') {
                         btnEnd.innerText = "Event Selesai";
                         btnEnd.classList.remove('hidden');
                     } else {
-                        btnEnd.classList.add('hidden'); // GM Biasa gak bisa apa2 kalau sudah selesai
+                        btnEnd.classList.add('hidden'); 
                     }
                 }
             }
@@ -676,7 +700,6 @@
             document.getElementById('gm-active-display').classList.add('hidden');
         };
 
-        // --- FITUR ROLLBACK & DELETE (POWERFUL) ---
         window.endEvent = async () => { 
             const role = localStorage.getItem('ms_role');
             
@@ -696,7 +719,6 @@
                         const qHistory = query(collection(db, "history"), where("activityId", "==", currentSelectedEventId));
                         const historySnap = await getDocs(qHistory);
 
-                        // LOOPING PENGHAPUSAN (ROLLBACK POIN)
                         const promises = historySnap.docs.map(async (hDoc) => {
                             const hData = hDoc.data();
                             const userRef = doc(db, "users", hData.userId);
@@ -709,7 +731,6 @@
 
                         await Promise.all(promises);
 
-                        // HAPUS EVENT (SOFT DELETE: STATUS DELETED)
                         await updateDoc(evRef, { status: 'deleted' });
 
                         alert(`SUKSES!\nEvent dihapus.\nPoin ditarik dari ${historySnap.size} peserta.`);
