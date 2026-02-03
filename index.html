@@ -732,8 +732,30 @@
                 return; 
             }
             
-            let formattedWA = creatorWA.replace(/\D/g, '');
-            if (formattedWA.startsWith('0')) formattedWA = '62' + formattedWA.slice(1);
+// 1. Bersihkan semua karakter selain angka
+let formattedWA = creatorWA.replace(/\D/g, '');
+
+// 2. Validasi Panjang: Nomor HP Indonesia minimal 10 digit (contoh: 0812345678)
+//    Maksimal biasanya 14 digit. Kalau "123" atau "08123" pasti ditolak.
+if (formattedWA.length < 10 || formattedWA.length > 14) {
+    alert("Nomor WhatsApp TIDAK VALID!\nMinimal 10 digit angka (Contoh: 0812...)");
+    btn.innerText = "AKTIFKAN SEKARANG";
+    return;
+}
+
+// 3. Normalisasi & Validasi Prefix: 
+//    Jika diawali '0', ubah jadi '62'.
+if (formattedWA.startsWith('0')) {
+    formattedWA = '62' + formattedWA.slice(1);
+}
+
+// 4. Pastikan sekarang diawali '62' (Kode Negara Indonesia)
+//    Ini mencegah nomor ngawur seperti "1234567890" (karena tidak diawali 08 atau 62)
+if (!formattedWA.startsWith('62')) {
+    alert("Harap masukkan nomor WhatsApp yang benar (awalan 08... atau 62...)");
+    btn.innerText = "AKTIFKAN SEKARANG";
+    return;
+}
 
             const eventId = "EVT" + Date.now();
             try {
@@ -757,8 +779,11 @@
                 snap.forEach(d => {
                     const ev = d.data();
                     
-                    // WHATSAPP URL ENCODING FIX
-                    const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${ev.date}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
+// --- FORMAT TANGGAL CANTIK (dd mmmm yyyy) ---
+const dateObj = new Date(ev.date);
+const tglCantik = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${tglCantik}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
                     const waLink = `https://wa.me/${ev.creatorWA}?text=${encodeURIComponent(waMessage)}`;
                     
                     const btn = document.createElement('div');
