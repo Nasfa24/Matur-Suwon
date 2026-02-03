@@ -47,41 +47,197 @@
                 <div id="member-register-fields" class="space-y-4">
                     <input type="text" id="reg-name" placeholder="Nama Lengkap" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary transition-all font-bold text-gray-700">
                     <input type="text" inputmode="numeric" id="reg-nik" placeholder="NIK (16 Digit)" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 16)" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary transition-all font-bold text-gray-700">
+                    
                     <select id="reg-domicile" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary transition-all font-bold text-gray-700 text-sm">
                         <option value="" disabled selected>Pilih Domisili (Kec/Kel)</option>
                         <option value="LUAR SURABAYA">LUAR SURABAYA</option>
+                        
                         <option value="(Asemrowo) Asemrowo">(Asemrowo) Asemrowo</option>
+                        <option value="(Asemrowo) Genting Kalianak">(Asemrowo) Genting Kalianak</option>
+                        <option value="(Asemrowo) Tambak Sarioso">(Asemrowo) Tambak Sarioso</option>
+                        
                         <option value="(Benowo) Kandangan">(Benowo) Kandangan</option>
+                        <option value="(Benowo) Romokalisari">(Benowo) Romokalisari</option>
+                        <option value="(Benowo) Sememi">(Benowo) Sememi</option>
+                        <option value="(Benowo) Tambak Oso Wilangon">(Benowo) Tambak Oso Wilangon</option>
+                        
+                        <option value="(Bubutan) Alon-Alon Contong">(Bubutan) Alon-Alon Contong</option>
                         <option value="(Bubutan) Bubutan">(Bubutan) Bubutan</option>
+                        <option value="(Bubutan) Gundih">(Bubutan) Gundih</option>
+                        <option value="(Bubutan) Jepara">(Bubutan) Jepara</option>
+                        <option value="(Bubutan) Tembok Dukuh">(Bubutan) Tembok Dukuh</option>
+                        
                         <option value="(Bulak) Bulak">(Bulak) Bulak</option>
+                        <option value="(Bulak) Kedung Cowek">(Bulak) Kedung Cowek</option>
+                        <option value="(Bulak) Kenjeran">(Bulak) Kenjeran</option>
+                        <option value="(Bulak) Sukolilo Baru">(Bulak) Sukolilo Baru</option>
+                        
                         <option value="(Dukuh Pakis) Dukuh Kupang">(Dukuh Pakis) Dukuh Kupang</option>
+                        <option value="(Dukuh Pakis) Dukuh Pakis">(Dukuh Pakis) Dukuh Pakis</option>
+                        <option value="(Dukuh Pakis) Gunungsari">(Dukuh Pakis) Gunungsari</option>
+                        <option value="(Dukuh Pakis) Pradahkali Kendal">(Dukuh Pakis) Pradahkali Kendal</option>
+                        
+                        <option value="(Gayungan) Dukuh Menanggal">(Gayungan) Dukuh Menanggal</option>
                         <option value="(Gayungan) Gayungan">(Gayungan) Gayungan</option>
+                        <option value="(Gayungan) Ketintang">(Gayungan) Ketintang</option>
+                        <option value="(Gayungan) Menanggal">(Gayungan) Menanggal</option>
+                        
+                        <option value="(Genteng) Embong Kaliasin">(Genteng) Embong Kaliasin</option>
                         <option value="(Genteng) Genteng">(Genteng) Genteng</option>
+                        <option value="(Genteng) Kapasari">(Genteng) Kapasari</option>
+                        <option value="(Genteng) Ketabang">(Genteng) Ketabang</option>
+                        <option value="(Genteng) Peneleh">(Genteng) Peneleh</option>
+                        
+                        <option value="(Gubeng) Airlangga">(Gubeng) Airlangga</option>
+                        <option value="(Gubeng) Baratajaya">(Gubeng) Baratajaya</option>
                         <option value="(Gubeng) Gubeng">(Gubeng) Gubeng</option>
+                        <option value="(Gubeng) Kertajaya">(Gubeng) Kertajaya</option>
+                        <option value="(Gubeng) Mojo">(Gubeng) Mojo</option>
+                        <option value="(Gubeng) Pucang Sewu">(Gubeng) Pucang Sewu</option>
+                        
                         <option value="(Gunung Anyar) Gunung Anyar">(Gunung Anyar) Gunung Anyar</option>
+                        <option value="(Gunung Anyar) Gunung Anyar Tambak">(Gunung Anyar) Gunung Anyar Tambak</option>
+                        <option value="(Gunung Anyar) Rungkut Menanggal">(Gunung Anyar) Rungkut Menanggal</option>
+                        <option value="(Gunung Anyar) Rungkut Tengah">(Gunung Anyar) Rungkut Tengah</option>
+                        
                         <option value="(Jambangan) Jambangan">(Jambangan) Jambangan</option>
+                        <option value="(Jambangan) Karah">(Jambangan) Karah</option>
+                        <option value="(Jambangan) Kebonsari">(Jambangan) Kebonsari</option>
+                        <option value="(Jambangan) Pagesangan">(Jambangan) Pagesangan</option>
+                        
                         <option value="(Karang Pilang) Karang Pilang">(Karang Pilang) Karang Pilang</option>
+                        <option value="(Karang Pilang) Kebraon">(Karang Pilang) Kebraon</option>
+                        <option value="(Karang Pilang) Kedurus">(Karang Pilang) Kedurus</option>
+                        <option value="(Karang Pilang) Warugunung">(Karang Pilang) Warugunung</option>
+                        
+                        <option value="(Kenjeran) Bulak Banteng">(Kenjeran) Bulak Banteng</option>
                         <option value="(Kenjeran) Sidotopo Wetan">(Kenjeran) Sidotopo Wetan</option>
+                        <option value="(Kenjeran) Tambak Wedi">(Kenjeran) Tambak Wedi</option>
+                        <option value="(Kenjeran) Tanah Kali Kedinding">(Kenjeran) Tanah Kali Kedinding</option>
+                        
+                        <option value="(Krembangan) Dupak">(Krembangan) Dupak</option>
+                        <option value="(Krembangan) Kemayoran">(Krembangan) Kemayoran</option>
                         <option value="(Krembangan) Krembangan Selatan">(Krembangan) Krembangan Selatan</option>
+                        <option value="(Krembangan) Morokrembangan">(Krembangan) Morokrembangan</option>
+                        <option value="(Krembangan) Perak Barat">(Krembangan) Perak Barat</option>
+                        
+                        <option value="(Lakarsantri) Bangkingan">(Lakarsantri) Bangkingan</option>
+                        <option value="(Lakarsantri) Jeruk">(Lakarsantri) Jeruk</option>
+                        <option value="(Lakarsantri) Lakarsantri">(Lakarsantri) Lakarsantri</option>
                         <option value="(Lakarsantri) Lidah Kulon">(Lakarsantri) Lidah Kulon</option>
+                        <option value="(Lakarsantri) Lidah Wetan">(Lakarsantri) Lidah Wetan</option>
+                        <option value="(Lakarsantri) Sumur Welut">(Lakarsantri) Sumur Welut</option>
+                        
+                        <option value="(Mulyorejo) Dukuh Sutorejo">(Mulyorejo) Dukuh Sutorejo</option>
+                        <option value="(Mulyorejo) Kalijudan">(Mulyorejo) Kalijudan</option>
+                        <option value="(Mulyorejo) Kalisari">(Mulyorejo) Kalisari</option>
+                        <option value="(Mulyorejo) Kejawen Putih Tambak">(Mulyorejo) Kejawen Putih Tambak</option>
+                        <option value="(Mulyorejo) Manyar Sabrangan">(Mulyorejo) Manyar Sabrangan</option>
                         <option value="(Mulyorejo) Mulyorejo">(Mulyorejo) Mulyorejo</option>
+                        
+                        <option value="(Pabean Cantian) Bongkaran">(Pabean Cantian) Bongkaran</option>
+                        <option value="(Pabean Cantian) Krembangan Utara">(Pabean Cantian) Krembangan Utara</option>
+                        <option value="(Pabean Cantian) Nyamplungan">(Pabean Cantian) Nyamplungan</option>
                         <option value="(Pabean Cantian) Perak Timur">(Pabean Cantian) Perak Timur</option>
+                        <option value="(Pabean Cantian) Perak Utara">(Pabean Cantian) Perak Utara</option>
+                        
+                        <option value="(Pakal) Babat Jerawat">(Pakal) Babat Jerawat</option>
+                        <option value="(Pakal) Benowo">(Pakal) Benowo</option>
                         <option value="(Pakal) Pakal">(Pakal) Pakal</option>
+                        <option value="(Pakal) Sumberrejo">(Pakal) Sumberrejo</option>
+                        
+                        <option value="(Rungkut) Kali Rungkut">(Rungkut) Kali Rungkut</option>
+                        <option value="(Rungkut) Kedung Baruk">(Rungkut) Kedung Baruk</option>
+                        <option value="(Rungkut) Medokan Ayu">(Rungkut) Medokan Ayu</option>
+                        <option value="(Rungkut) Penjaringan Sari">(Rungkut) Penjaringan Sari</option>
                         <option value="(Rungkut) Rungkut Kidul">(Rungkut) Rungkut Kidul</option>
+                        <option value="(Rungkut) Wonorejo Rungkut">(Rungkut) Wonorejo Rungkut</option>
+                        
+                        <option value="(Sambikerep) Bringin">(Sambikerep) Bringin</option>
+                        <option value="(Sambikerep) Lontar">(Sambikerep) Lontar</option>
+                        <option value="(Sambikerep) Made">(Sambikerep) Made</option>
                         <option value="(Sambikerep) Sambikerep">(Sambikerep) Sambikerep</option>
+                        
+                        <option value="(Sawahan) Banyu Urip">(Sawahan) Banyu Urip</option>
+                        <option value="(Sawahan) Kupang Krajan">(Sawahan) Kupang Krajan</option>
+                        <option value="(Sawahan) Pakis">(Sawahan) Pakis</option>
+                        <option value="(Sawahan) Petemon">(Sawahan) Petemon</option>
+                        <option value="(Sawahan) Putat Jaya">(Sawahan) Putat Jaya</option>
                         <option value="(Sawahan) Sawahan">(Sawahan) Sawahan</option>
+                        
                         <option value="(Semampir) Ampel">(Semampir) Ampel</option>
+                        <option value="(Semampir) Pegirian">(Semampir) Pegirian</option>
+                        <option value="(Semampir) Sidotopo">(Semampir) Sidotopo</option>
+                        <option value="(Semampir) Ujung">(Semampir) Ujung</option>
+                        <option value="(Semampir) Wonokusumo">(Semampir) Wonokusumo</option>
+                        
+                        <option value="(Simokerto) Kapasan">(Simokerto) Kapasan</option>
+                        <option value="(Simokerto) Sidodadi">(Simokerto) Sidodadi</option>
                         <option value="(Simokerto) Simokerto">(Simokerto) Simokerto</option>
+                        <option value="(Simokerto) Simolawang">(Simokerto) Simolawang</option>
+                        <option value="(Simokerto) Tambakrejo">(Simokerto) Tambakrejo</option>
+                        
+                        <option value="(Suko Manunggal) Putat Gede">(Suko Manunggal) Putat Gede</option>
+                        <option value="(Suko Manunggal) Simomulyo">(Suko Manunggal) Simomulyo</option>
+                        <option value="(Suko Manunggal) Simomulyo Baru">(Suko Manunggal) Simomulyo Baru</option>
+                        <option value="(Suko Manunggal) Sono Kwijenan">(Suko Manunggal) Sono Kwijenan</option>
                         <option value="(Suko Manunggal) Suko Manunggal">(Suko Manunggal) Suko Manunggal</option>
-                        <option value="(Sukolilo) Sukolilo">(Sukolilo) Sukolilo</option>
+                        <option value="(Suko Manunggal) Tanjungsari">(Suko Manunggal) Tanjungsari</option>
+                        
+                        <option value="(Sukolilo) Gebang Putih">(Sukolilo) Gebang Putih</option>
+                        <option value="(Sukolilo) Keputih">(Sukolilo) Keputih</option>
+                        <option value="(Sukolilo) Klampis Ngasem">(Sukolilo) Klampis Ngasem</option>
+                        <option value="(Sukolilo) Medokan Semampir">(Sukolilo) Medokan Semampir</option>
+                        <option value="(Sukolilo) Menur Pumpungan">(Sukolilo) Menur Pumpungan</option>
+                        <option value="(Sukolilo) Ngiden Jangkungan">(Sukolilo) Ngiden Jangkungan</option>
+                        <option value="(Sukolilo) Semolowaru">(Sukolilo) Semolowaru</option>
+                        
+                        <option value="(Tambaksari) Dukuh Setro">(Tambaksari) Dukuh Setro</option>
+                        <option value="(Tambaksari) Gading">(Tambaksari) Gading</option>
+                        <option value="(Tambaksari) Kapasmadya Baru">(Tambaksari) Kapasmadya Baru</option>
+                        <option value="(Tambaksari) Pacar Keling">(Tambaksari) Pacar Keling</option>
+                        <option value="(Tambaksari) Pacar Kembang">(Tambaksari) Pacar Kembang</option>
+                        <option value="(Tambaksari) Ploso">(Tambaksari) Ploso</option>
+                        <option value="(Tambaksari) Rangkah">(Tambaksari) Rangkah</option>
                         <option value="(Tambaksari) Tambaksari">(Tambaksari) Tambaksari</option>
+                        
+                        <option value="(Tandes) Balongsari">(Tandes) Balongsari</option>
+                        <option value="(Tandes) Banjar Sugihan">(Tandes) Banjar Sugihan</option>
+                        <option value="(Tandes) Karangpoh">(Tandes) Karangpoh</option>
+                        <option value="(Tandes) Manukan Kulon">(Tandes) Manukan Kulon</option>
+                        <option value="(Tandes) Manukan Wetan">(Tandes) Manukan Wetan</option>
                         <option value="(Tandes) Tandes">(Tandes) Tandes</option>
+                        
+                        <option value="(Tegalsari) Dr. Sutomo">(Tegalsari) Dr. Sutomo</option>
+                        <option value="(Tegalsari) Kedungdoro">(Tegalsari) Kedungdoro</option>
+                        <option value="(Tegalsari) Keputran">(Tegalsari) Keputran</option>
                         <option value="(Tegalsari) Tegalsari">(Tegalsari) Tegalsari</option>
+                        <option value="(Tegalsari) Wonorejo Tegalsari">(Tegalsari) Wonorejo Tegalsari</option>
+                        
+                        <option value="(Tenggilis Mejoyo) Kendangsari">(Tenggilis Mejoyo) Kendangsari</option>
+                        <option value="(Tenggilis Mejoyo) Kutisari">(Tenggilis Mejoyo) Kutisari</option>
+                        <option value="(Tenggilis Mejoyo) Panjang Jiwo">(Tenggilis Mejoyo) Panjang Jiwo</option>
                         <option value="(Tenggilis Mejoyo) Tenggilis Mejoyo">(Tenggilis Mejoyo) Tenggilis Mejoyo</option>
+                        
+                        <option value="(Wiyung) Babatan">(Wiyung) Babatan</option>
+                        <option value="(Wiyung) Balas Klumprik">(Wiyung) Balas Klumprik</option>
+                        <option value="(Wiyung) Jajar Tunggal">(Wiyung) Jajar Tunggal</option>
                         <option value="(Wiyung) Wiyung">(Wiyung) Wiyung</option>
-                        <option value="(Wonocolo) Wonocolo">(Wonocolo) Wonocolo</option>
+                        
+                        <option value="(Wonocolo) Bendul Merisi">(Wonocolo) Bendul Merisi</option>
+                        <option value="(Wonocolo) Jemur Wonosari">(Wonocolo) Jemur Wonosari</option>
+                        <option value="(Wonocolo) Margorejo">(Wonocolo) Margorejo</option>
+                        <option value="(Wonocolo) Sidosermo">(Wonocolo) Sidosermo</option>
+                        <option value="(Wonocolo) Siwalankerto">(Wonocolo) Siwalankerto</option>
+                        
+                        <option value="(Wonokromo) Darmo">(Wonokromo) Darmo</option>
+                        <option value="(Wonokromo) Jagir">(Wonokromo) Jagir</option>
+                        <option value="(Wonokromo) Ngagel">(Wonokromo) Ngagel</option>
+                        <option value="(Wonokromo) Ngagelrejo">(Wonokromo) Ngagelrejo</option>
+                        <option value="(Wonokromo) Sawunggaling">(Wonokromo) Sawunggaling</option>
                         <option value="(Wonokromo) Wonokromo">(Wonokromo) Wonokromo</option>
                     </select>
+
                     <input type="text" inputmode="numeric" id="reg-wa" placeholder="No. WhatsApp" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none focus:border-primary transition-all font-bold text-gray-700">
                     <input type="text" id="reg-ref" placeholder="ID Pengajak (Opsional)" class="w-full p-4 bg-white rounded-2xl border-2 border-gray-300 outline-none text-xs uppercase focus:border-primary transition-all font-bold text-gray-700">
                     <button id="btn-daftar" class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-4 rounded-2xl font-black uppercase text-xs active:scale-95 transition-all shadow-lg mt-2 tracking-widest">Gabung Jadi Konektor</button>
@@ -210,11 +366,11 @@
                 <div class="absolute top-0 left-0 w-full h-2 bg-teal-500 animate-pulse"></div>
                 <h2 id="display-ev-name" class="text-3xl font-black italic text-gray-800 uppercase leading-tight text-center mb-1"></h2>
                 <p id="display-ev-info" class="text-[10px] font-bold text-teal-600 mt-1 uppercase tracking-widest text-center bg-teal-50 inline-block px-3 py-1 rounded-full"></p>
-                
                 <p id="display-ev-creator" class="text-[9px] text-gray-400 mt-2 font-black uppercase tracking-widest"></p>
 
                 <div class="my-8 flex justify-center p-4 bg-white rounded-[2rem] shadow-inner border border-gray-100"><div id="ev-qrcode-area"></div></div>
                 <p class="text-[10px] text-gray-400 mb-4 italic font-bold">Konektor Scan QR di atas, ATAU</p>
+                
                 <button id="btn-gm-scan-member" class="w-full bg-gray-900 text-white py-4 rounded-2xl font-black uppercase shadow-lg mb-2 flex justify-center items-center gap-3 active:scale-95 hover:bg-gray-800 transition-colors">
                     <span class="text-xl">📷</span> <span class="text-[10px] tracking-widest">Scan QR Konektor</span>
                 </button>
@@ -251,8 +407,7 @@
                             <th class="p-4 border-b border-teal-100 text-right">Waktu</th>
                         </tr>
                     </thead>
-                    <tbody id="attendee-list-body" class="text-xs font-bold text-gray-600">
-                        </tbody>
+                    <tbody id="attendee-list-body" class="text-xs font-bold text-gray-600"></tbody>
                 </table>
             </div>
             <div class="p-4 border-t border-gray-100 bg-gray-50">
@@ -276,35 +431,8 @@
         <div class="bg-white rounded-[2rem] w-full max-w-md max-h-[85vh] overflow-hidden flex flex-col shadow-2xl relative">
             <button id="btn-close-guide" class="absolute top-4 right-4 bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:bg-red-100 hover:text-red-500 font-bold transition-all z-10">✕</button>
             <div class="p-6 overflow-y-auto">
-                <div class="mb-8">
-                    <h3 class="font-black text-gray-800 text-lg mb-4 flex items-center gap-3">
-                        <span class="bg-teal-100 text-teal-700 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">A</span> 
-                        Untuk Konektor
-                    </h3>
-                    <ol class="list-decimal pl-10 text-sm text-gray-600 space-y-3 font-medium leading-relaxed">
-                        <li><strong>Daftar:</strong> Isi Nama, NIK, dan WA di halaman depan, lalu klik "Gabung". Simpan screenshot ID Anda.</li>
-                        <li><strong>Absen:</strong> Klik tombol "📷 SCAN EVENT", lalu arahkan kamera ke QR Code yang dipegang Panitia (GM).</li>
-                        <li><strong>Cek Poin:</strong> Poin akan bertambah otomatis setelah scan berhasil.</li>
-                        <li><strong>Tukar Hadiah:</strong> Masuk menu "Redeem", pilih hadiah, dan klik "Tukar".</li>
-                    </ol>
-                </div>
-
-                <div class="mb-4">
-                    <h3 class="font-black text-gray-800 text-lg mb-4 flex items-center gap-3">
-                        <span class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shadow-sm">B</span> 
-                        Untuk Game Master
-                    </h3>
-                    <ol class="list-decimal pl-10 text-sm text-gray-600 space-y-3 font-medium leading-relaxed">
-                        <li><strong>Buka Event:</strong> Login GM -> Buat Event Baru -> Isi Data -> Aktifkan.</li>
-                        <li><strong>Mode Pasif:</strong> Tunjukkan QR Code di layar HP Anda ke peserta untuk discan.</li>
-                        <li><strong>Mode Aktif:</strong> Klik "Scan QR Konektor" untuk men-scan ID peserta secara manual (jika peserta kesulitan).</li>
-                        <li><strong>Audit:</strong> Gunakan fitur Audit WA untuk validasi event yang mencurigakan.</li>
-                        <li><strong>Selesai:</strong> Klik "Event Selesai" untuk menutup sesi absensi.</li>
-                    </ol>
-                </div>
-            </div>
-            <div class="p-5 border-t border-gray-100 bg-gray-50 text-center">
-                <button id="btn-close-guide-btm" class="w-full bg-[#0f766e] text-white py-4 rounded-xl font-bold text-sm uppercase tracking-widest shadow-lg active:scale-95 hover:bg-teal-800 transition-colors">Saya Mengerti</button>
+                <h3 class="font-black text-gray-800 text-lg mb-4">Panduan Singkat</h3>
+                <p class="text-sm text-gray-600">Gunakan fitur ini untuk memahami cara kerja aplikasi KONEKTA bagi Member dan Game Master.</p>
             </div>
         </div>
     </div>
@@ -392,8 +520,6 @@
 
             document.getElementById('btn-open-guide').onclick = openGuide;
             document.getElementById('btn-close-guide').onclick = closeGuide;
-            // LISTENER UNTUK TOMBOL TUTUP PANDUAN DI BAWAH
-            document.getElementById('btn-close-guide-btm').onclick = closeGuide;
 
             document.getElementById('btn-view-regions').onclick = openRegionStats;
             document.getElementById('btn-close-regions').onclick = closeRegionStats;
@@ -402,6 +528,7 @@
             document.getElementById('btn-close-attendee').onclick = closeAttendeeList;
             document.getElementById('btn-download-attendee-csv').onclick = downloadAttendeeCSV;
 
+            // LISTENER TOMBOL ARSIP BARU
             document.getElementById('btn-view-archive').onclick = loadEventHistory;
         }
 
@@ -439,15 +566,17 @@
             const list = document.getElementById('archive-items');
             list.innerHTML = "<p class='text-center py-4 text-[10px] text-gray-400'>Memuat data...</p>";
             document.getElementById('gm-archive-list').classList.remove('hidden');
-            document.getElementById('active-locations-list').classList.add('hidden'); 
+            document.getElementById('active-locations-list').classList.add('hidden'); // Sembunyikan yg aktif dulu
 
-            const q = query(collection(db, "active_events"), where("status", "==", "ended"), limit(20)); 
+            const q = query(collection(db, "active_events"), where("status", "==", "ended"), limit(20)); // Limit 20 terakhir
             const snap = await getDocs(q);
 
             list.innerHTML = snap.empty ? '<p class="text-center py-4 text-[10px] text-gray-400 italic">Belum ada event selesai.</p>' : '';
             
             snap.forEach(d => {
                 const ev = d.data();
+                
+                // CEK APAKAH ADA NOMOR WA (Data Lama mungkin tidak punya)
                 let auditBtn = '';
                 if(ev.creatorWA) {
                      const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${ev.date}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
@@ -628,6 +757,7 @@
                 snap.forEach(d => {
                     const ev = d.data();
                     
+                    // WHATSAPP URL ENCODING FIX
                     const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${ev.date}"* benar adanya?\n\nMohon dikirim fotonya dong...`;
                     const waLink = `https://wa.me/${ev.creatorWA}?text=${encodeURIComponent(waMessage)}`;
                     
@@ -676,6 +806,7 @@
                 const role = localStorage.getItem('ms_role');
                 if(role === 'super_gm') {
                     const btnEnd = document.getElementById('btn-end-event');
+                    // JIKA EVENT SUDAH SELESAI (ENDED), TOMBOL JADI "HAPUS PERMANEN"
                     if(d.status === 'ended') {
                         btnEnd.innerText = "HAPUS EVENT & TARIK POIN";
                         btnEnd.classList.remove('hidden');
@@ -684,12 +815,13 @@
                         btnEnd.classList.remove('hidden');
                     }
                 } else {
+                    // GM BIASA
                     const btnEnd = document.getElementById('btn-end-event');
                     if(d.status === 'active') {
                         btnEnd.innerText = "Event Selesai";
                         btnEnd.classList.remove('hidden');
                     } else {
-                        btnEnd.classList.add('hidden'); 
+                        btnEnd.classList.add('hidden'); // GM Biasa gak bisa apa2 kalau sudah selesai
                     }
                 }
             }
@@ -700,6 +832,7 @@
             document.getElementById('gm-active-display').classList.add('hidden');
         };
 
+        // --- FITUR ROLLBACK & DELETE (POWERFUL) ---
         window.endEvent = async () => { 
             const role = localStorage.getItem('ms_role');
             
@@ -719,6 +852,7 @@
                         const qHistory = query(collection(db, "history"), where("activityId", "==", currentSelectedEventId));
                         const historySnap = await getDocs(qHistory);
 
+                        // LOOPING PENGHAPUSAN (ROLLBACK POIN)
                         const promises = historySnap.docs.map(async (hDoc) => {
                             const hData = hDoc.data();
                             const userRef = doc(db, "users", hData.userId);
@@ -731,6 +865,7 @@
 
                         await Promise.all(promises);
 
+                        // HAPUS EVENT (SOFT DELETE: STATUS DELETED)
                         await updateDoc(evRef, { status: 'deleted' });
 
                         alert(`SUKSES!\nEvent dihapus.\nPoin ditarik dari ${historySnap.size} peserta.`);
