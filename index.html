@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KONEKTA - Terhubung Lebih Dekat</title>
-
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://appkonekta.fun/">
+<meta property="og:title" content="KONEKTA - Terhubung Lebih Dekat">
+<meta property="og:description" content="Satu Aplikasi, Ribuan Koneksi. Gabung komunitas, kumpulkan poin, dan tukarkan manfaatnya!">
+<meta property="og:image" content="https://appkonekta.fun/logo.png"> <meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="shortcut icon" href="logo.png" type="image/png">
     
@@ -350,8 +355,10 @@
                 <button id="btn-cancel-event" class="absolute top-6 right-6 text-gray-300 hover:text-red-500 font-bold text-xl">×</button>
                 <h3 class="text-center font-black uppercase text-lg text-gray-800 tracking-tight mb-4">Setup Lokasi</h3>
                 <input type="text" id="ev-name" placeholder="Nama Kegiatan" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
-                <input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-gray-700 text-center focus:border-primary transition-all">
-                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Zona A)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
+<div class="w-full text-left ml-2 mb-1 mt-2">
+    <label class="text-[9px] font-black text-teal-600 uppercase tracking-widest">Tanggal Pelaksanaan</label>
+</div>
+<input type="date" id="ev-date" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-gray-700 text-center focus:border-primary transition-all cursor-pointer">                <input type="text" id="ev-loc" placeholder="Lokasi (Contoh: Zona A)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all">
                 
                 <input type="text" id="ev-creator" placeholder="Nama Penanggung Jawab (Wajib)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all text-teal-700 mt-2">
                 <input type="text" inputmode="numeric" id="ev-wa" placeholder="No. WhatsApp Penanggung Jawab (Wajib)" class="w-full p-4 bg-gray-50 rounded-2xl border-2 border-green-100 outline-none font-bold text-sm focus:border-primary transition-all text-teal-700 mt-2">
@@ -911,14 +918,38 @@ const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${
         window.openMemberScannerMode = () => { isGmScanning = false; startScanner(); };
         window.openGMScannerMode = () => { isGmScanning = true; startScanner(); };
 
-        function startScanner() {
+ function startScanner() {
             document.getElementById('scanner-modal').classList.remove('hidden');
             html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start({ facingMode: "environment" }, { fps: 15, qrbox: 250 }, async (txt) => {
+            
+            // Konfigurasi Scanner
+            const config = { fps: 15, qrbox: 250 };
+            
+            html5QrCode.start({ facingMode: "environment" }, config, async (txt) => {
+                // STOP KAMERA DULU SETELAH SCAN BERHASIL
                 await html5QrCode.stop();
-                if (isGmScanning) { await processGmScan(txt); } else { await processMemberScan(txt); }
                 document.getElementById('scanner-modal').classList.add('hidden');
-                if (!isGmScanning) location.reload(); 
+
+                // --- 1. FITUR BARU: CEK APAKAH INI LINK (URL) ---
+                // Cek apakah teks dimulai dengan http (misal: https://chat.whatsapp.com/...)
+                if (txt.toLowerCase().startsWith("http") || txt.toLowerCase().startsWith("www")) {
+                    
+                    // Tampilkan konfirmasi biar user ga kaget tiba-tiba pindah aplikasi
+                    if(confirm("🔍 Link Terdeteksi!\n\n" + txt + "\n\nIngin membuka link ini?")) {
+                        window.open(txt, '_blank'); // Buka di tab baru / aplikasi WA
+                    }
+                    // Kalau user pilih Cancel, dia cuma kembali ke menu utama (tidak error)
+                    return; 
+                }
+
+                // --- 2. LOGIKA LAMA (ABSENSI & GM) ---
+                if (isGmScanning) { 
+                    await processGmScan(txt); 
+                } else { 
+                    await processMemberScan(txt); 
+                    // Refresh hanya jika itu scan absen (biar poin update)
+                    location.reload(); 
+                }
             });
         }
 
@@ -1074,36 +1105,73 @@ const waMessage = `Apakah *"${ev.name}"* di *"${ev.location}"* pada tanggal *"${
             });
         }
 
-        async function loadApp() {
+ async function loadApp() {
+            // 1. Setup Listener Tombol dulu
             setupListeners();
+
+            // 2. Cek LocalStorage dengan Teliti
             const role = localStorage.getItem('ms_role');
-            if(!role) { document.getElementById('tab-awal').classList.remove('hidden'); return; }
-            if(role.includes('gm')) {
-                document.getElementById('tab-gm').classList.remove('hidden');
+            const uid = localStorage.getItem('ms_user_id');
+
+            console.log("Status Login:", role); // Cek di Console Browser kalau masih error
+
+            // 3. LOGIKA PENENTUAN HALAMAN
+            if (role && role.includes('gm')) {
+                // --- JIKA DIA GM ---
+                document.getElementById('tab-awal').classList.add('hidden'); // Pastikan tab awal sembunyi
+                document.getElementById('tab-gm').classList.remove('hidden'); // Munculkan tab GM
+                
                 if(role === 'super_gm') {
                     document.getElementById('super-stats').classList.remove('hidden');
-                    // TAMPILKAN TOMBOL ARSIP
                     document.getElementById('btn-view-archive').classList.remove('hidden');
                     
-                    const mSnap = await getDocs(collection(db, "users"));
-                    document.getElementById('total-members').innerText = `${mSnap.size}`;
+                    // Ambil data total member untuk Super GM
+                    try {
+                        const mSnap = await getDocs(collection(db, "users"));
+                        document.getElementById('total-members').innerText = `${mSnap.size}`;
+                    } catch (e) { console.log("Gagal ambil stats:", e); }
                 }
-                loadActiveLocations();
-            } else {
-                const uid = localStorage.getItem('ms_user_id');
+                
+                loadActiveLocations(); // Load data event
+
+            } else if (role === 'member' && uid) {
+                // --- JIKA DIA MEMBER ---
+                document.getElementById('tab-awal').classList.add('hidden');
                 document.getElementById('tab-anggota').classList.remove('hidden');
                 document.getElementById('member-nav').classList.remove('hidden');
-                const uSnap = await getDoc(doc(db, "users", uid));
-                if(uSnap.exists()) {
-                    const d = uSnap.data();
-                    document.getElementById('user-points').innerText = d.points.toLocaleString();
-                    document.getElementById('user-name').innerText = d.name;
-                    document.getElementById('user-id-text').innerText = "ID: " + uid;
-                    new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 200, height: 200, colorDark: "#0f766e" });
-                    loadHistory(uid);
+                
+                try {
+                    const uSnap = await getDoc(doc(db, "users", uid));
+                    if(uSnap.exists()) {
+                        const d = uSnap.data();
+                        document.getElementById('user-points').innerText = d.points.toLocaleString();
+                        document.getElementById('user-name').innerText = d.name;
+                        document.getElementById('user-id-text').innerText = "ID: " + uid;
+                        
+                        // Generate QR Code
+                        document.getElementById("qrcode-area").innerHTML = "";
+                        new QRCode(document.getElementById("qrcode-area"), { text: uid, width: 200, height: 200, colorDark: "#0f766e" });
+                        
+                        loadHistory(uid);
+                    } else {
+                        // Kalau data di DB ga ada (misal dihapus), paksa logout
+                        alert("Data akun tidak ditemukan. Silakan daftar ulang.");
+                        logout();
+                    }
+                } catch (e) {
+                    console.log("Error Member:", e);
                 }
+
+            } else {
+                // --- JIKA BELUM LOGIN ---
+                document.getElementById('tab-awal').classList.remove('hidden');
+                document.getElementById('tab-gm').classList.add('hidden');
+                document.getElementById('tab-anggota').classList.add('hidden');
+                document.getElementById('member-nav').classList.add('hidden');
             }
         }
+        
+        // Jalankan App
         loadApp();
     </script>
 </body>
